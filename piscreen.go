@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/stianeikeland/go-rpio/v4"
+	"time"
 )
 
 func main() {
@@ -12,8 +12,16 @@ func main() {
 
 	defer rpio.Close()
 
-	pin := rpio.Pin(13)
-	pin.Input()
-	pin.PullUp()
-	fmt.Printf("PullUp: %d, %d\n", pin.Read(), pin.ReadPull())
+	dc, rst, bl := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
+	dc.Output()
+	rst.Output()
+	bl.Output()
+	bl.High()
+
+	rst.High()
+	time.Sleep(10 * time.Millisecond)
+	rst.Low()
+	time.Sleep(10 * time.Millisecond)
+	rst.High()
+	time.Sleep(10 * time.Millisecond)
 }
