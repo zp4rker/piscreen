@@ -1,5 +1,7 @@
 package spi
 
+import "image"
+
 type Display interface {
 	Command(cmds ...byte)
 	Data(data ...byte)
@@ -7,4 +9,6 @@ type Display interface {
 	Reset()
 
 	Clear()
+
+	ShowImage(img image.Image)
 }

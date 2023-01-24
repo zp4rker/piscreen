@@ -1,7 +1,10 @@
 package impl
 
 import (
+	"bytes"
 	"github.com/stianeikeland/go-rpio/v4"
+	"image"
+	"image/png"
 	"time"
 )
 
@@ -29,7 +32,39 @@ func (d ST7789) Data(data ...byte) {
 	rpio.SpiEnd(rpio.Spi0)
 }
 
-func (d ST7789) Reset() {}
+func (d ST7789) Reset() {
+	d.rstPin.High()
+	time.Sleep(10 * time.Millisecond)
+	d.rstPin.Low()
+	time.Sleep(10 * time.Millisecond)
+	d.rstPin.High()
+	time.Sleep(10 * time.Millisecond)
+}
+
+func (d ST7789) ShowImage(img image.Image) {
+	d.Command(0x2A) // CASET
+	d.Data(0x00)
+	d.Data(0 & 0xFF)
+	d.Data(0x00)
+	d.Data((240 - 1) & 0xFF)
+
+	d.Command(0x2B) // RASET
+	d.Data(0x00)
+	d.Data(0 & 0xFF)
+	d.Data(0x00)
+	d.Data((240 - 1) & 0xFF)
+
+	d.Command(0x2C) // RAMWR
+
+	buf := new(bytes.Buffer)
+	if err := png.Encode(buf, img); err != nil {
+		panic(err)
+	}
+
+	d.Data(buf.Bytes()...)
+}
+
+func (d ST7789) Clear() {}
 
 func NewST7789() {
 	dcPin, rstPin, blPin := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
