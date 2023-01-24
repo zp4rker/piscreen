@@ -19,6 +19,7 @@ func (d ST7789) Command(cmds ...byte) {
 	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
 		panic(err)
 	}
+	rpio.SpiChipSelect(0)
 	rpio.SpiTransmit(cmds...)
 	rpio.SpiEnd(rpio.Spi0)
 }
@@ -28,6 +29,7 @@ func (d ST7789) Data(data ...byte) {
 	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
 		panic(err)
 	}
+	rpio.SpiChipSelect(0)
 	rpio.SpiTransmit(data...)
 	rpio.SpiEnd(rpio.Spi0)
 }
