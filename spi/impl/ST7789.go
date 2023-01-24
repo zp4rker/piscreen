@@ -78,6 +78,13 @@ func NewST7789() ST7789 {
 		blPin:  &blPin,
 	}
 
+	dcPin.Output()
+	rstPin.Output()
+	blPin.Output()
+	blPin.High()
+
+	rpio.SpiChipSelect(40000000)
+
 	inst.Reset()
 
 	inst.Command(0x11) // DISPON
