@@ -1,8 +1,9 @@
 package main
 
 import (
+	"github.com/fogleman/gg"
 	"github.com/stianeikeland/go-rpio/v4"
-	"time"
+	"piscreen/spi/impl"
 )
 
 func main() {
@@ -12,16 +13,12 @@ func main() {
 
 	defer rpio.Close()
 
-	dc, rst, bl := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
-	dc.Output()
-	rst.Output()
-	bl.Output()
-	bl.High()
+	display := impl.NewST7789()
+	context := gg.NewContext(240, 240)
 
-	rst.High()
-	time.Sleep(10 * time.Millisecond)
-	rst.Low()
-	time.Sleep(10 * time.Millisecond)
-	rst.High()
-	time.Sleep(10 * time.Millisecond)
+	context.SetRGB(255, 255, 255)
+	context.DrawRectangle(0, 0, 240, 240)
+	context.Fill()
+
+	display.ShowImage(context.Image())
 }

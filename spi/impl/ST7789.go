@@ -66,7 +66,7 @@ func (d ST7789) ShowImage(img image.Image) {
 
 func (d ST7789) Clear() {}
 
-func NewST7789() {
+func NewST7789() ST7789 {
 	dcPin, rstPin, blPin := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
 	inst := ST7789{
 		width:  240,
@@ -153,4 +153,6 @@ func NewST7789() {
 	inst.Command(0x21) // INVON
 
 	inst.Command(0x29) // DISPON
+
+	return inst
 }
