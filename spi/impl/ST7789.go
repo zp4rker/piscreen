@@ -83,7 +83,8 @@ func NewST7789() ST7789 {
 	blPin.Output()
 	blPin.High()
 
-	rpio.SpiChipSelect(40000000)
+	rpio.SpiChipSelect(0)
+	rpio.SpiSpeed(40000000)
 
 	inst.Reset()
 
