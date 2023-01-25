@@ -141,6 +141,24 @@ func main() {
 
 	rpio.SpiTransmit(0x29)
 
+	rpio.SpiTransmit(0x2A)
+	dcPin.High()
+	rpio.SpiTransmit(0x00)
+	rpio.SpiTransmit(0 & 0xFF)
+	rpio.SpiTransmit(0x00)
+	rpio.SpiTransmit((240 - 1) & 0xFF)
+
+	dcPin.Low()
+	rpio.SpiTransmit(0x2B)
+	dcPin.High()
+	rpio.SpiTransmit(0x00)
+	rpio.SpiTransmit(0 & 0xFF)
+	rpio.SpiTransmit(0x00)
+	rpio.SpiTransmit((240 - 1) & 0xFF)
+
+	dcPin.High()
+	rpio.SpiTransmit(0x2C)
+
 	context := gg.NewContext(240, 240)
 	context.SetRGB(255, 0, 0)
 	context.DrawRectangle(0, 0, 240, 240)
@@ -155,34 +173,7 @@ func main() {
 	rpio.SpiTransmit(buf.Bytes()...)
 
 	rpio.SpiEnd(rpio.Spi0)
-}
 
-func cmd(cmds ...byte) {
-	dcPin.Low()
-
-	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
-		panic(err)
-	}
-
-	rpio.SpiChipSelect(0)
-	rpio.SpiSpeed(40000000)
-
-	rpio.SpiTransmit(cmds...)
-
-	rpio.SpiEnd(rpio.Spi0)
-}
-
-func data(data ...byte) {
-	dcPin.High()
-
-	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
-		panic(err)
-	}
-
-	rpio.SpiChipSelect(0)
-	rpio.SpiSpeed(40000000)
-
-	rpio.SpiTransmit(data...)
-
-	rpio.SpiEnd(rpio.Spi0)
+	print(len(buf.Bytes()))
+	print(len(buf.Bytes()) / 4096)
 }
