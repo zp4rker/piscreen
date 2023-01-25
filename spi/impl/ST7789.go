@@ -88,47 +88,48 @@ func NewST7789() ST7789 {
 
 	inst.Reset()
 
-	inst.Command(0x11) // DISPON
+	inst.Command(0x11)
 	time.Sleep(1200 * time.Millisecond)
-	inst.Command(0x36) // MADCTL
+
+	inst.Command(0x36)
 	inst.Data(0x70)
 
-	inst.Command(0x3A) // COLMOD
+	inst.Command(0x3A)
 	inst.Data(0x05)
 
-	inst.Command(0xB2) // PORCTRL
+	inst.Command(0xB2)
 	inst.Data(0x0C)
 	inst.Data(0x0C)
 	inst.Data(0x00)
 	inst.Data(0x33)
 	inst.Data(0x33)
 
-	inst.Command(0xB7) // GCTRL
+	inst.Command(0xB7)
 	inst.Data(0x35)
 
-	inst.Command(0xBB) // VCOMS
+	inst.Command(0xBB)
 	inst.Data(0x37)
 
-	inst.Command(0xC0) // LCMCTRL
+	inst.Command(0xC0)
 	inst.Data(0x2C)
 
-	inst.Command(0xC2) // VDVVRHEN
+	inst.Command(0xC2)
 	inst.Data(0x01)
 
-	inst.Command(0xC3) // VRHS
+	inst.Command(0xC3)
 	inst.Data(0x12)
 
-	inst.Command(0xC4) // VDVS
+	inst.Command(0xC4)
 	inst.Data(0x20)
 
-	inst.Command(0xC6) // FRCTRL2
+	inst.Command(0xC6)
 	inst.Data(0x0F)
 
-	inst.Command(0xD0) // PWCTRL1
+	inst.Command(0xD0)
 	inst.Data(0xA4)
 	inst.Data(0xA1)
 
-	inst.Command(0xE0) // PVGAMCTRL
+	inst.Command(0xE0)
 	inst.Data(0xD0)
 	inst.Data(0x04)
 	inst.Data(0x0D)
@@ -144,7 +145,7 @@ func NewST7789() ST7789 {
 	inst.Data(0x1F)
 	inst.Data(0x23)
 
-	inst.Command(0xE1) // NVGAMCTRL
+	inst.Command(0xE1)
 	inst.Data(0xD0)
 	inst.Data(0x04)
 	inst.Data(0x0C)
@@ -160,9 +161,9 @@ func NewST7789() ST7789 {
 	inst.Data(0x20)
 	inst.Data(0x23)
 
-	inst.Command(0x21) // INVON
+	inst.Command(0x21)
 
-	inst.Command(0x29) // DISPON
+	inst.Command(0x29)
 
 	return inst
 }
