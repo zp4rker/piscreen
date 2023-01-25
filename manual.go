@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"github.com/fogleman/gg"
 	"github.com/stianeikeland/go-rpio/v4"
+	"image/png"
 	"time"
 )
 
@@ -137,6 +140,19 @@ func main() {
 	rpio.SpiTransmit(0x21)
 
 	rpio.SpiTransmit(0x29)
+
+	context := gg.NewContext(240, 240)
+	context.SetRGB(255, 0, 0)
+	context.DrawRectangle(0, 0, 240, 240)
+	context.Fill()
+
+	buf := new(bytes.Buffer)
+	if err := png.Encode(buf, context.Image()); err != nil {
+		panic(err)
+	}
+
+	dcPin.High()
+	rpio.SpiTransmit(buf.Bytes()...)
 
 	rpio.SpiEnd(rpio.Spi0)
 }
