@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/fogleman/gg"
 	"github.com/stianeikeland/go-rpio/v4"
-	"image/png"
+	"golang.org/x/image/bmp"
 	"time"
 )
 
@@ -165,7 +165,7 @@ func main() {
 	context.Fill()
 
 	buf := new(bytes.Buffer)
-	if err := png.Encode(buf, context.Image()); err != nil {
+	if err := bmp.Encode(buf, context.Image()); err != nil {
 		panic(err)
 	}
 
