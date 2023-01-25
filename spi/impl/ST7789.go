@@ -20,6 +20,7 @@ func (d ST7789) Command(cmds ...byte) {
 		panic(err)
 	}
 	rpio.SpiChipSelect(0)
+	rpio.SpiSpeed(40000000)
 	rpio.SpiTransmit(cmds...)
 	rpio.SpiEnd(rpio.Spi0)
 }
@@ -30,6 +31,7 @@ func (d ST7789) Data(data ...byte) {
 		panic(err)
 	}
 	rpio.SpiChipSelect(0)
+	rpio.SpiSpeed(40000000)
 	rpio.SpiTransmit(data...)
 	rpio.SpiEnd(rpio.Spi0)
 }
@@ -82,9 +84,6 @@ func NewST7789() ST7789 {
 	rstPin.Output()
 	blPin.Output()
 	blPin.High()
-
-	rpio.SpiChipSelect(0)
-	rpio.SpiSpeed(40000000)
 
 	inst.Reset()
 
