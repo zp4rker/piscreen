@@ -24,7 +24,7 @@ func main() {
 	canvas := device.GetFullScreenCanvas()
 
 	draw := gg.NewContext(240, 240)
-	draw.SetHexColor("#FF0000")
+	draw.SetRGB(255, 0, 0)
 	draw.DrawRectangle(0, 0, 240, 240)
 	draw.Fill()
 
