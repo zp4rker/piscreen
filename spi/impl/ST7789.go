@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/stianeikeland/go-rpio/v4"
 	"image"
+	"image/color"
 	"image/png"
 	"time"
 )
@@ -165,4 +166,9 @@ func NewST7789() ST7789 {
 	inst.Command(0x29)
 
 	return inst
+}
+
+func RGBATo565(c color.Color) byte {
+	r, g, b, _ := c.RGBA()
+	return byte((r & 0xF8) + ((g & 0xFC) >> 5) + ((b & 0xF8) >> 11))
 }
