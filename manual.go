@@ -156,7 +156,7 @@ func main() {
 	rpio.SpiTransmit(0x00)
 	rpio.SpiTransmit((240 - 1) & 0xFF)
 
-	dcPin.High()
+	dcPin.Low()
 	rpio.SpiTransmit(0x2C)
 
 	context := gg.NewContext(240, 240)
