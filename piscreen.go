@@ -16,6 +16,8 @@ func main() {
 	}
 	defer dsp.Close()
 
+	dsp.PowerOn()
+
 	context := gg.NewContext(240, 240)
 	context.SetRGB(255, 0, 0)
 	context.DrawRectangle(0, 0, 240, 240)
