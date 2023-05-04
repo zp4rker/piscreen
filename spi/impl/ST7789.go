@@ -1,11 +1,8 @@
 package impl
 
 import (
-	"bytes"
 	"github.com/stianeikeland/go-rpio/v4"
-	"image"
 	"image/color"
-	"image/png"
 	"time"
 )
 
@@ -14,62 +11,6 @@ type ST7789 struct {
 
 	dcPin, rstPin, blPin *rpio.Pin
 }
-
-func (d ST7789) Command(cmds ...byte) {
-	d.dcPin.Low()
-	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
-		panic(err)
-	}
-	rpio.SpiChipSelect(0)
-	rpio.SpiSpeed(40000000)
-	rpio.SpiTransmit(cmds...)
-	rpio.SpiEnd(rpio.Spi0)
-}
-
-func (d ST7789) Data(data ...byte) {
-	d.dcPin.High()
-	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
-		panic(err)
-	}
-	rpio.SpiChipSelect(0)
-	rpio.SpiSpeed(40000000)
-	rpio.SpiTransmit(data...)
-	rpio.SpiEnd(rpio.Spi0)
-}
-
-func (d ST7789) Reset() {
-	d.rstPin.High()
-	time.Sleep(10 * time.Millisecond)
-	d.rstPin.Low()
-	time.Sleep(10 * time.Millisecond)
-	d.rstPin.High()
-	time.Sleep(10 * time.Millisecond)
-}
-
-func (d ST7789) ShowImage(img image.Image) {
-	d.Command(0x2A) // CASET
-	d.Data(0x00)
-	d.Data(0 & 0xFF)
-	d.Data(0x00)
-	d.Data((240 - 1) & 0xFF)
-
-	d.Command(0x2B) // RASET
-	d.Data(0x00)
-	d.Data(0 & 0xFF)
-	d.Data(0x00)
-	d.Data((240 - 1) & 0xFF)
-
-	d.Command(0x2C) // RAMWR
-
-	buf := new(bytes.Buffer)
-	if err := png.Encode(buf, img); err != nil {
-		panic(err)
-	}
-
-	d.Data(buf.Bytes()...)
-}
-
-func (d ST7789) Clear() {}
 
 func NewST7789() ST7789 {
 	dcPin, rstPin, blPin := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
@@ -88,48 +29,54 @@ func NewST7789() ST7789 {
 
 	inst.Reset()
 
-	inst.Command(0x11)
+	if err := rpio.SpiBegin(rpio.Spi0); err != nil {
+		panic(err)
+	}
+	rpio.SpiChipSelect(0)
+	rpio.SpiSpeed(40000000)
+
+	inst.Command(SLPOUT)
 	time.Sleep(1200 * time.Millisecond)
 
-	inst.Command(0x36)
+	inst.Command(MADCTL)
 	inst.Data(0x70)
 
-	inst.Command(0x3A)
+	inst.Command(COLMOD)
 	inst.Data(0x05)
 
-	inst.Command(0xB2)
+	inst.Command(PORCTRL)
 	inst.Data(0x0C)
 	inst.Data(0x0C)
 	inst.Data(0x00)
 	inst.Data(0x33)
 	inst.Data(0x33)
 
-	inst.Command(0xB7)
+	inst.Command(GCTRL)
 	inst.Data(0x35)
 
-	inst.Command(0xBB)
+	inst.Command(VCOMS)
 	inst.Data(0x37)
 
-	inst.Command(0xC0)
+	inst.Command(LCMCTRL)
 	inst.Data(0x2C)
 
-	inst.Command(0xC2)
+	inst.Command(VDVVRHEN)
 	inst.Data(0x01)
 
-	inst.Command(0xC3)
+	inst.Command(VRHS)
 	inst.Data(0x12)
 
-	inst.Command(0xC4)
+	inst.Command(VDVS)
 	inst.Data(0x20)
 
-	inst.Command(0xC6)
+	inst.Command(FRCTRL2)
 	inst.Data(0x0F)
 
-	inst.Command(0xD0)
+	inst.Command(PWCTRL1)
 	inst.Data(0xA4)
 	inst.Data(0xA1)
 
-	inst.Command(0xE0)
+	inst.Command(PVGAMCTRL)
 	inst.Data(0xD0)
 	inst.Data(0x04)
 	inst.Data(0x0D)
@@ -145,7 +92,7 @@ func NewST7789() ST7789 {
 	inst.Data(0x1F)
 	inst.Data(0x23)
 
-	inst.Command(0xE1)
+	inst.Command(NVGAMCTRL)
 	inst.Data(0xD0)
 	inst.Data(0x04)
 	inst.Data(0x0C)
@@ -161,14 +108,62 @@ func NewST7789() ST7789 {
 	inst.Data(0x20)
 	inst.Data(0x23)
 
-	inst.Command(0x21)
+	inst.Command(INVON)
 
-	inst.Command(0x29)
+	inst.Command(DISPON)
 
 	return inst
 }
 
-func RGBATo565(c color.Color) byte {
+func (d ST7789) Command(cmds ...byte) {
+	d.dcPin.Low()
+	rpio.SpiTransmit(cmds...)
+}
+
+func (d ST7789) Data(data ...byte) {
+	d.dcPin.High()
+	rpio.SpiTransmit(data...)
+}
+
+func (d ST7789) Reset() {
+	d.rstPin.High()
+	time.Sleep(10 * time.Millisecond)
+	d.rstPin.Low()
+	time.Sleep(10 * time.Millisecond)
+	d.rstPin.High()
+	time.Sleep(10 * time.Millisecond)
+}
+
+func (d ST7789) SetWindows(x0, y0, x1, y1 byte) {
+	d.Command(CASET)
+	d.Data(0x00)
+	d.Data(x0 & 0xFF)
+	d.Data(0x00)
+	d.Data((x1 - 1) & 0xFF)
+
+	d.Command(RASET)
+	d.Data(0x00)
+	d.Data(y0 & 0xFF)
+	d.Data(0x00)
+	d.Data((y1 - 1) & 0xFF)
+
+	d.Command(RAMWR)
+}
+
+func (d ST7789) Close() {
+	rpio.SpiEnd(rpio.Spi0)
+}
+
+func (d ST7789) Clear() {
+	d.SetWindows(0, 0, 240, 240)
+	c1 := byte(RGBATo565(color.RGBA{}))
+	c2 := byte(RGBATo565(color.RGBA{}) >> 8)
+	for i := 0; i < 240*240; i++ {
+		d.Data(c1, c2)
+	}
+}
+
+func RGBATo565(c color.Color) uint16 {
 	r, g, b, _ := c.RGBA()
-	return byte((r & 0xF8) + ((g & 0xFC) >> 5) + ((b & 0xF8) >> 11))
+	return uint16((r & 0xF8) + ((g & 0xFC) >> 5) + ((b & 0xF8) >> 11))
 }
