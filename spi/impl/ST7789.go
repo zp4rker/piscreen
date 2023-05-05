@@ -25,7 +25,6 @@ func NewST7789() ST7789 {
 	if err := rpio.Open(); err != nil {
 		panic(err)
 	}
-	defer rpio.Close()
 
 	dcPin.Output()
 	rstPin.Output()
@@ -157,6 +156,7 @@ func (d ST7789) SetWindows(x0, y0, x1, y1 byte) {
 
 func (d ST7789) Close() {
 	rpio.SpiEnd(rpio.Spi0)
+	rpio.Close()
 }
 
 func (d ST7789) Clear() {
