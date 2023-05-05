@@ -2,6 +2,7 @@ package main
 
 import (
 	"piscreen/spi/impl"
+	"time"
 )
 
 func main() {
@@ -9,6 +10,8 @@ func main() {
 	defer disp.Close()
 
 	disp.Clear()
+
+	time.Sleep(5 * time.Second)
 
 	//context := gg.NewContext(240, 240)
 	//context.SetRGB(255, 0, 0)
