@@ -22,6 +22,11 @@ func NewST7789() ST7789 {
 		blPin:  &blPin,
 	}
 
+	if err := rpio.Open(); err != nil {
+		panic(err)
+	}
+	defer rpio.Close()
+
 	dcPin.Output()
 	rstPin.Output()
 	blPin.Output()
