@@ -164,7 +164,7 @@ func (d ST7789) Close() {
 func (d ST7789) Clear() {
 	d.SetWindows(0, 0, 240, 240)
 	c0 := RGBATo565(color.RGBA{R: 0xFF})
-	fmt.Printf("%X\n", c0)
+	fmt.Printf("%v %O %X\n", c0, c0, c0)
 	c1 := byte(c0)
 	c2 := byte(c0 >> 8)
 	for i := 0; i < 240*240; i++ {
@@ -184,5 +184,6 @@ func (d ST7789) ShowImage(img image.Image) {
 
 func RGBATo565(c color.Color) uint16 {
 	r, g, b, _ := c.RGBA()
-	return uint16((r & 0xF8) + ((g & 0xFC) >> 5) + ((b & 0xF8) >> 11))
+	//return uint16((r & 0xF8) + ((g & 0xFC) >> 5) + ((b & 0xF8) >> 11))
+	return uint16(((r / 0xFF * 31) << 11) | ((g / 0xFF * 63) << 5) | (b / 0xFF * 31))
 }
