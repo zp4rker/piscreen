@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"github.com/fogleman/gg"
+	"golang.org/x/image/bmp"
 	"image/color"
 	"piscreen/spi/impl"
 )
@@ -24,4 +26,11 @@ func main() {
 	println("printing image...")
 	disp.ShowImage(context.Image())
 	println("done")
+
+	buf := new(bytes.Buffer)
+	if err := bmp.Encode(buf, context.Image()); err != nil {
+		panic(err)
+	}
+
+	println(buf.Bytes()[0])
 }
