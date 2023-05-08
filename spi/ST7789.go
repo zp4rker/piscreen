@@ -160,9 +160,9 @@ func (d ST7789) Close() {
 	rpio.Close()
 }
 
-func (d ST7789) Clear() {
+func (d ST7789) Clear(c color.RGBA) {
 	d.SetWindows(0, 0, 240, 240)
-	c0 := RGBATo565(color.RGBA{})
+	c0 := RGBATo565(c)
 	c1 := byte(c0)
 	c2 := byte(c0 >> 8)
 	for i := 0; i < 240*240; i++ {

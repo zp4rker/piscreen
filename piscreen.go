@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image/color"
 	"piscreen/screens"
 	"piscreen/spi"
 )
@@ -10,7 +11,7 @@ func main() {
 	defer disp.Close()
 
 	println("clearing...")
-	disp.Clear()
+	disp.Clear(color.RGBA{})
 	println("done")
 
 	println("printing image...")
