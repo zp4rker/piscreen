@@ -2,6 +2,7 @@ package impl
 
 import (
 	"github.com/stianeikeland/go-rpio/v4"
+	"image"
 	"image/color"
 	"time"
 )
@@ -165,6 +166,16 @@ func (d ST7789) Clear() {
 	c2 := byte(RGBATo565(color.RGBA{}) >> 8)
 	for i := 0; i < 240*240; i++ {
 		d.Data(c1, c2)
+	}
+}
+
+func (d ST7789) ShowImage(img image.Image) {
+	d.SetWindows(0, 0, 240, 240)
+	for x := 0; x < 240; x++ {
+		for y := 0; y < 240; y++ {
+			c := img.At(x, y)
+			d.Data(byte(RGBATo565(c)), byte(RGBATo565(c)>>8))
+		}
 	}
 }
 
