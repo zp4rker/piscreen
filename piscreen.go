@@ -32,5 +32,5 @@ func main() {
 		panic(err)
 	}
 
-	println(buf.Bytes()[0])
+	println(buf.Bytes()[240])
 }
