@@ -19,7 +19,7 @@ func (s Home) Render() image.Image {
 	if err := context.LoadFontFace("JetBrainsMono.ttf", 17); err != nil {
 		fmt.Printf("Failed to load font!")
 	}
-	context.DrawStringAnchored(time.Now().Format("Mon 2 Jan 2006 15:04"), 120, 215, 0.5, 0)
+	context.DrawStringAnchored(time.Now().Format("Mon 2 Jan 2006 15:04"), 120, 215, 0.5, 1.25)
 
 	return context.Image()
 }
