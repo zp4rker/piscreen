@@ -9,6 +9,7 @@ import (
 
 func main() {
 	println(byte(impl.RGBATo565(color.RGBA{R: 0xFF, A: 0xFF})))
+	fmt.Printf("%+v\n", color.RGBA{R: 0x01, A: 0xFF})
 	println(byte(impl.RGBATo565(color.RGBA{R: 0x01, A: 0xFF})))
 
 	disp := impl.NewST7789()
