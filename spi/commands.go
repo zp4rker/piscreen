@@ -1,4 +1,4 @@
-package impl
+package spi
 
 type Rotation uint8
 type FrameRate uint8

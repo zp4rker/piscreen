@@ -1,11 +1,11 @@
 package main
 
 import (
-	"piscreen/spi/impl"
+	"piscreen/spi"
 )
 
 func main() {
-	disp := impl.NewST7789()
+	disp := spi.NewST7789()
 	defer disp.Close()
 
 	println("clearing...")

@@ -1,4 +1,4 @@
-package impl
+package spi
 
 import (
 	"github.com/stianeikeland/go-rpio/v4"
