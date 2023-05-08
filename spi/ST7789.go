@@ -182,5 +182,5 @@ func (d ST7789) ShowImage(img image.Image) {
 
 func RGBATo565(c color.Color) uint16 {
 	r, g, b, _ := c.RGBA()
-	return uint16(((r / 0xFF * 31) << 11) | ((g / 0xFF * 63) << 5) | (b / 0xFF * 31))
+	return uint16(((r / 0xFF * 31) << 11) + ((g / 0xFF * 63) << 5) + (b / 0xFF * 31))
 }
