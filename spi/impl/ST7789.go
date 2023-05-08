@@ -112,7 +112,7 @@ func NewST7789() ST7789 {
 	inst.Data(0x20)
 	inst.Data(0x23)
 
-	inst.Command(INVOFF)
+	inst.Command(INVON)
 
 	inst.Command(DISPON)
 
