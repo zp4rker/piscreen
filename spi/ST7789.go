@@ -174,8 +174,8 @@ func (d ST7789) ShowImage(img image.Image) {
 	d.SetWindows(0, 0, 240, 240)
 	for x := 0; x < 240; x++ {
 		for y := 0; y < 240; y++ {
-			c := img.At(x, y)
-			d.Data(byte(RGBATo565(c)), byte(RGBATo565(c)>>8))
+			c := RGBATo565(img.At(x, y))
+			d.Data(byte(c), byte(c>>8))
 		}
 	}
 }
