@@ -26,5 +26,6 @@ func main() {
 	disp.ShowImage(context.Image())
 	println("done")
 
-	fmt.Printf("%v\n", context.Image())
+	fmt.Printf("%v\n", context.Image().At(0, 0))
+	println(impl.RGBATo565(context.Image().At(0, 0)))
 }
