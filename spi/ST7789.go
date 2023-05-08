@@ -162,8 +162,8 @@ func (d ST7789) Close() {
 
 func (d ST7789) Clear() {
 	d.SetWindows(0, 0, 240, 240)
-	c1 := byte(RGBATo565(color.RGBA{R: 0xFF, B: 0xFF, A: 0xFF}))
-	c2 := byte(RGBATo565(color.RGBA{R: 0xFF, B: 0xFF, A: 0xFF}) >> 8)
+	c1 := byte(RGBATo565(color.RGBA{R: 0xFF, G: 0xFF, B: 0xFF, A: 0xFF}))
+	c2 := byte(RGBATo565(color.RGBA{R: 0xFF, G: 0xFF, B: 0xFF, A: 0xFF}) >> 8)
 	for i := 0; i < 240*240; i++ {
 		d.Data(c1, c2)
 	}
