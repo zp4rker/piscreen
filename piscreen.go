@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/fogleman/gg"
 	"image/color"
 	"piscreen/spi/impl"
@@ -25,5 +26,5 @@ func main() {
 	disp.ShowImage(context.Image())
 	println("done")
 
-	println(context.Image())
+	fmt.Printf("%v\n", context.Image())
 }
