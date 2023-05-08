@@ -28,6 +28,10 @@ func main() {
 	disp.ShowImage(context.Image())
 	println("done")
 
-	fmt.Printf("%v\n", context.Image().At(0, 0))
-	println(impl.RGBATo565(context.Image().At(0, 0)))
+	img := context.Image()
+	for x := 0; x < 5; x++ {
+		for y := 0; y < 5; y++ {
+			fmt.Printf("%+v\n", img.At(x, y))
+		}
+	}
 }
