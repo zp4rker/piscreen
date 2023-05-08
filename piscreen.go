@@ -20,7 +20,7 @@ func main() {
 	println("done")
 
 	context := gg.NewContext(240, 240)
-	context.SetRGB(255, 0, 0)
+	context.SetRGBA(0xFF/0xFF, 0, 0xFF/0xFF, 0xFF/0xFF)
 	context.DrawRectangle(0, 0, 240, 240)
 	context.Fill()
 
