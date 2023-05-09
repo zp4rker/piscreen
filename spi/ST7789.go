@@ -142,7 +142,7 @@ func (d ST7789) Reset() {
 }
 
 func (d ST7789) ToggleSleep() {
-	if d.asleep {
+	if !d.asleep {
 		d.asleep = true
 		d.Command(SLPIN)
 	} else {
