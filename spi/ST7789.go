@@ -11,6 +11,8 @@ type ST7789 struct {
 	width, height int
 
 	dcPin, rstPin, blPin *rpio.Pin
+
+	asleep bool
 }
 
 func NewST7789() ST7789 {
@@ -137,6 +139,16 @@ func (d ST7789) Reset() {
 	time.Sleep(10 * time.Millisecond)
 	d.rstPin.High()
 	time.Sleep(10 * time.Millisecond)
+}
+
+func (d ST7789) ToggleSleep() {
+	if d.asleep {
+		d.asleep = true
+		d.Command(SLPIN)
+	} else {
+		d.asleep = false
+		d.Command(SLPOUT)
+	}
 }
 
 func (d ST7789) SetWindows(x0, y0, x1, y1 byte) {

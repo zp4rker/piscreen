@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"piscreen/util"
+	"piscreen/vars"
 	"time"
 )
 
@@ -30,5 +31,8 @@ func (s Home) Render() image.Image {
 }
 
 func (s Home) Handle(key string) {
-
+	switch key {
+	case "KEY_PRESS":
+		vars.Display.ToggleSleep()
+	}
 }

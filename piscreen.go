@@ -9,15 +9,15 @@ import (
 )
 
 func main() {
-	disp := spi.NewST7789()
-	defer disp.Close()
+	vars.Display = spi.NewST7789()
+	defer vars.Display.Close()
 
 	vars.Running = true
 	keys.StartKeyListeners()
 
-	disp.Clear(color.RGBA{})
+	vars.Display.Clear(color.RGBA{})
 
 	for vars.Running {
-		disp.ShowImage(screens.CurrentScreen.Render())
+		vars.Display.ShowImage(screens.CurrentScreen.Render())
 	}
 }
