@@ -1,9 +1,11 @@
 package keys
 
 import (
+	"fmt"
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
 	"periph.io/x/host/v3"
+	"time"
 )
 
 func Listen(name string) {
@@ -20,8 +22,11 @@ func Listen(name string) {
 		panic(err)
 	}
 
+	t := time.Now()
+
 	for {
 		p.WaitForEdge(-1)
-		println("Got press!")
+		d := time.Now().Sub(t)
+		fmt.Printf("%vms\n", d.Milliseconds())
 	}
 }
