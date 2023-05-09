@@ -122,17 +122,17 @@ func NewST7789() ST7789 {
 	return inst
 }
 
-func (d ST7789) Command(cmds ...byte) {
+func (d *ST7789) Command(cmds ...byte) {
 	d.dcPin.Low()
 	rpio.SpiTransmit(cmds...)
 }
 
-func (d ST7789) Data(data ...byte) {
+func (d *ST7789) Data(data ...byte) {
 	d.dcPin.High()
 	rpio.SpiTransmit(data...)
 }
 
-func (d ST7789) Reset() {
+func (d *ST7789) Reset() {
 	d.rstPin.High()
 	time.Sleep(10 * time.Millisecond)
 	d.rstPin.Low()
@@ -141,7 +141,7 @@ func (d ST7789) Reset() {
 	time.Sleep(10 * time.Millisecond)
 }
 
-func (d ST7789) ToggleSleep() {
+func (d *ST7789) ToggleSleep() {
 	if !d.Asleep {
 		d.Asleep = true
 		d.Command(SLPIN)
@@ -153,7 +153,7 @@ func (d ST7789) ToggleSleep() {
 	}
 }
 
-func (d ST7789) SetWindows(x0, y0, x1, y1 byte) {
+func (d *ST7789) SetWindows(x0, y0, x1, y1 byte) {
 	d.Command(CASET)
 	d.Data(0x00)
 	d.Data(x0 & 0xFF)
@@ -169,12 +169,12 @@ func (d ST7789) SetWindows(x0, y0, x1, y1 byte) {
 	d.Command(RAMWR)
 }
 
-func (d ST7789) Close() {
+func (d *ST7789) Close() {
 	rpio.SpiEnd(rpio.Spi0)
 	rpio.Close()
 }
 
-func (d ST7789) Clear(c color.RGBA) {
+func (d *ST7789) Clear(c color.RGBA) {
 	d.SetWindows(0, 0, 240, 240)
 	c0 := RGBATo565(c)
 	c1 := byte(c0)
@@ -184,7 +184,7 @@ func (d ST7789) Clear(c color.RGBA) {
 	}
 }
 
-func (d ST7789) ShowImage(img image.Image) {
+func (d *ST7789) ShowImage(img image.Image) {
 	d.SetWindows(0, 0, 240, 240)
 	for x := 0; x < 240; x++ {
 		for y := 0; y < 240; y++ {
