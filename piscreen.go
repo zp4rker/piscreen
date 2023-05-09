@@ -18,7 +18,7 @@ func main() {
 	vars.Display.Clear(color.RGBA{})
 
 	for vars.Running {
-		if vars.Asleep {
+		if vars.Display.Asleep {
 			continue
 		}
 
