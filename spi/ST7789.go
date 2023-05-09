@@ -4,6 +4,7 @@ import (
 	"github.com/stianeikeland/go-rpio/v4"
 	"image"
 	"image/color"
+	"piscreen/vars"
 	"time"
 )
 
@@ -11,8 +12,6 @@ type ST7789 struct {
 	width, height int
 
 	dcPin, rstPin, blPin *rpio.Pin
-
-	asleep bool
 }
 
 func NewST7789() ST7789 {
@@ -142,11 +141,11 @@ func (d ST7789) Reset() {
 }
 
 func (d ST7789) ToggleSleep() {
-	if !d.asleep {
-		d.asleep = true
+	if !vars.Asleep {
+		vars.Asleep = true
 		d.Command(SLPIN)
 	} else {
-		d.asleep = false
+		vars.Asleep = false
 		d.Command(SLPOUT)
 	}
 }

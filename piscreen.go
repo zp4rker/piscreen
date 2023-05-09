@@ -18,6 +18,10 @@ func main() {
 	vars.Display.Clear(color.RGBA{})
 
 	for vars.Running {
+		if vars.Asleep {
+			continue
+		}
+
 		vars.Display.ShowImage(screens.CurrentScreen.Render())
 	}
 }
