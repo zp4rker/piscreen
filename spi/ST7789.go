@@ -145,9 +145,11 @@ func (d ST7789) ToggleSleep() {
 	if !d.Asleep {
 		d.Asleep = true
 		d.Command(SLPIN)
+		println("sleeping")
 	} else {
 		d.Asleep = false
 		d.Command(SLPOUT)
+		println("not sleeping")
 	}
 }
 
