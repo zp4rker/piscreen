@@ -145,12 +145,10 @@ func (d *ST7789) ToggleSleep() {
 	if !d.Asleep {
 		d.Asleep = true
 		d.Command(SLPIN)
-		println("sleeping")
 		time.Sleep(120 * time.Millisecond)
 	} else {
 		d.Asleep = false
 		d.Command(SLPOUT)
-		println("not sleeping")
 		time.Sleep(120 * time.Millisecond)
 	}
 }
