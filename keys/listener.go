@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
-	"periph.io/x/host/v3"
 	"time"
 )
 
 func Listen(name string) {
-	if _, err := host.Init(); err != nil {
-		panic(err)
-	}
+	//if _, err := host.Init(); err != nil {
+	//	panic(err)
+	//}
 
 	p := gpioreg.ByName(name)
 	if p == nil {
