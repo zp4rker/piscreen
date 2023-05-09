@@ -6,12 +6,12 @@ import (
 	"periph.io/x/host/v3"
 )
 
-func Listen() {
+func Listen(name string) {
 	if _, err := host.Init(); err != nil {
 		panic(err)
 	}
 
-	p := gpioreg.ByName("GPIO13")
+	p := gpioreg.ByName(name)
 	if p == nil {
 		panic("failed to register pin")
 	}

@@ -3,5 +3,5 @@ package main
 import "piscreen/keys"
 
 func main() {
-	keys.Listen()
+	keys.Listen("13")
 }
