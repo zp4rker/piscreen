@@ -16,7 +16,7 @@ func Listen(name string) {
 		panic("failed to register pin")
 	}
 
-	if err := p.In(gpio.PullUp, gpio.BothEdges); err != nil {
+	if err := p.In(gpio.PullUp, gpio.FallingEdge); err != nil {
 		panic(err)
 	}
 
