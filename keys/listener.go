@@ -28,6 +28,9 @@ func Listen(name string) {
 		p.WaitForEdge(-1)
 		t2 := time.Now()
 		d := t2.Sub(t)
+		if d.Milliseconds() == 0 {
+			continue
+		}
 		fmt.Printf("%vms\n", d.Milliseconds())
 		t = t2
 	}
