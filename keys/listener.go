@@ -26,7 +26,9 @@ func Listen(name string) {
 
 	for {
 		p.WaitForEdge(-1)
-		d := time.Now().Sub(t)
+		t2 := time.Now()
+		d := t2.Sub(t)
 		fmt.Printf("%vms\n", d.Milliseconds())
+		t = t2
 	}
 }
