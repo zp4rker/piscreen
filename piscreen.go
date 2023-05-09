@@ -2,19 +2,22 @@ package main
 
 import (
 	"image/color"
+	"piscreen/keys"
 	"piscreen/screens"
 	"piscreen/spi"
+	"piscreen/vars"
 )
 
 func main() {
 	disp := spi.NewST7789()
 	defer disp.Close()
 
-	println("clearing...")
-	disp.Clear(color.RGBA{})
-	println("done")
+	vars.Running = true
+	keys.StartKeyListeners()
 
-	println("printing image...")
-	disp.ShowImage(screens.CurrentScreen.Render())
-	println("done")
+	disp.Clear(color.RGBA{})
+
+	for vars.Running {
+		disp.ShowImage(screens.CurrentScreen.Render())
+	}
 }

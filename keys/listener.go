@@ -1,36 +1,40 @@
 package keys
 
 import (
-	"fmt"
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
+	"periph.io/x/host/v3"
+	"piscreen/screens"
+	"piscreen/vars"
 	"time"
 )
 
-func Listen(name string) {
-	//if _, err := host.Init(); err != nil {
-	//	panic(err)
-	//}
-
-	p := gpioreg.ByName(name)
-	if p == nil {
-		panic("failed to register pin")
-	}
-
-	if err := p.In(gpio.PullUp, gpio.RisingEdge); err != nil {
+func StartKeyListeners() {
+	if _, err := host.Init(); err != nil {
 		panic(err)
 	}
 
-	t := time.Now()
-
-	for {
-		p.WaitForEdge(-1)
-		t2 := time.Now()
-		d := t2.Sub(t)
-		if d.Milliseconds() < 170 {
-			continue
+	for _, key := range Keys {
+		p := gpioreg.ByName(key.Pin)
+		if p == nil {
+			panic("failed to register pin " + key.Pin)
 		}
-		fmt.Printf("%vms\n", d.Milliseconds())
-		t = t2
+
+		if err := p.In(gpio.PullUp, gpio.RisingEdge); err != nil {
+			panic(err)
+		}
+
+		go func(k Key) {
+			for vars.Running {
+				if p.WaitForEdge(170 * time.Millisecond) {
+					t := time.Now()
+					if t.Sub(k.LastRegistered).Milliseconds() < 170 {
+						continue
+					}
+					k.LastRegistered = t
+					screens.CurrentScreen.Handle(k.Name)
+				}
+			}
+		}(key)
 	}
 }

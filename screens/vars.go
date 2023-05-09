@@ -6,11 +6,11 @@ import (
 	"piscreen/util"
 )
 
-var CurrentScreen = Home{}
+var CurrentScreen Screen = Home{}
 
 type Screen interface {
 	Render() image.Image
-	Handle()
+	Handle(key string)
 }
 
 func Background() *gg.Context {

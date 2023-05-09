@@ -28,3 +28,7 @@ func (s Home) Render() image.Image {
 
 	return context.Image()
 }
+
+func (s Home) Handle(key string) {
+
+}
