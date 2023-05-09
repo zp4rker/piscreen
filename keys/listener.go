@@ -11,7 +11,7 @@ func Listen() {
 		panic(err)
 	}
 
-	p := gpioreg.ByName("13")
+	p := gpioreg.ByName("GPIO13")
 	if p == nil {
 		panic("failed to register pin")
 	}
