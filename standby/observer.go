@@ -10,7 +10,7 @@ func Observe() {
 	go func() {
 		for vars.Running {
 			if !vars.Display.IsAsleep() && time.Now().Sub(vars.LastActive).Seconds() >= 15 {
-				util.Debug("standby delay reached\n")
+				util.Debug("standby delay reached")
 				vars.Display.ToggleSleep()
 			}
 			time.Sleep(5 * time.Second)

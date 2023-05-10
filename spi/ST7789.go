@@ -149,13 +149,13 @@ func (d *ST7789) IsAsleep() bool {
 func (d *ST7789) ToggleSleep() {
 	if !d.asleep {
 		d.asleep = true
-		util.Debug("going to sleep\n")
+		util.Debug("going to sleep")
 		//d.Command(SLPIN)
 		time.Sleep(120 * time.Millisecond)
 		d.Clear(color.RGBA{})
 	} else {
 		d.asleep = false
-		util.Debug("waking up\n")
+		util.Debug("waking up")
 		//d.Command(SLPOUT)
 		//time.Sleep(120 * time.Millisecond)
 	}

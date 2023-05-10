@@ -29,7 +29,7 @@ func Listen() {
 		go func(k Key) {
 			for vars.Running {
 				if p.WaitForEdge(-1) {
-					util.Debug(fmt.Sprintf("received press of %v\n", k.Name))
+					util.Debug(fmt.Sprintf("received press of %v", k.Name))
 					t := time.Now()
 					if t.Sub(k.LastRegistered).Milliseconds() < int64(vars.ListenDelay) {
 						continue
