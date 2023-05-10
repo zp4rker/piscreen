@@ -34,8 +34,7 @@ func (s Home) Render() image.Image {
 	lines := 0
 
 	if inf, err := host.Info(); err == nil {
-		s := fmt.Sprintf("Hostname: %v", inf.Hostname)
-		context.DrawStringAnchored(s, 5, float64(5+lines*17), 0, 1.25)
+		context.DrawStringAnchored(inf.Hostname, 5, float64(5+lines*17), 0, 1.25)
 		lines++
 	}
 
@@ -55,6 +54,7 @@ func (s Home) Render() image.Image {
 				}
 			}
 		}
+		lines++
 	}
 
 	if cpup, err := cpu.Percent(0, false); err == nil {
