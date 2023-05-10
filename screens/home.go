@@ -2,6 +2,7 @@ package screens
 
 import (
 	"fmt"
+	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
 	"image"
 	"piscreen/util"
@@ -30,7 +31,14 @@ func (s Home) Render() image.Image {
 	context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
 
 	vm, _ := mem.VirtualMemory()
-	context.DrawString(fmt.Sprintf("Memory: %v%", vm.UsedPercent), 10, 10)
+	memString := fmt.Sprintf("Memory: %d/%d MB", vm.Used/1024/1024, vm.Total/1024/1024)
+	//context.DrawStringAnchored(memString, 10, 10, 0, 1.25)
+
+	du, _ := disk.Usage("/")
+	diskString := fmt.Sprintf("Storage: %.2f/%.2f GB", float64(du.Used)/1024/1024/1024, float64(du.Total)/1024/1024/1024)
+
+	statString := fmt.Sprintf("%s\n%s", memString, diskString)
+	context.DrawStringAnchored(statString, 10, 10, 0, 1.25)
 
 	return context.Image()
 }
