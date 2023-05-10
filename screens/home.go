@@ -32,7 +32,7 @@ func (s Home) Render() image.Image {
 
 	du, _ := disk.Usage("/")
 	diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
-	context.DrawStringAnchored(diskString, 5, 27, 0, 1.25)
+	context.DrawStringAnchored(diskString, 5, 26, 0, 1.25)
 
 	return context.Image()
 }
