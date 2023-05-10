@@ -5,7 +5,6 @@ import (
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
 	"periph.io/x/host/v3"
-	"piscreen/screens"
 	"piscreen/util"
 	"piscreen/vars"
 	"time"
@@ -36,7 +35,7 @@ func Listen() {
 					}
 					util.Debug(fmt.Sprintf("pressed after %vms", t.Sub(k.LastRegistered).Milliseconds()))
 					k.LastRegistered = t
-					screens.CurrentScreen.Handle(k.Name)
+					vars.CurrentScreen.Handle(k.Name)
 					util.Debug("press handled")
 				}
 			}
