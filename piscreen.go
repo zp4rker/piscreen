@@ -45,5 +45,6 @@ func main() {
 		prevImage = newImage
 		vars.Display.ShowImage(newImage)
 		util.Debug(fmt.Sprintf("\nnew image rendered @ %v", time.Now().Format("15:04:05")))
+		time.Sleep(500 * time.Millisecond)
 	}
 }

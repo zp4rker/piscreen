@@ -200,7 +200,6 @@ func (d *ST7789) ShowImage(img image.Image) {
 			d.Data(byte(c>>8), byte(c))
 		}
 	}
-	time.Sleep(120 * time.Millisecond)
 }
 
 func RGBATo565(c color.Color) uint16 {
