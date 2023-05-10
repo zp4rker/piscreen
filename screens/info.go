@@ -15,9 +15,9 @@ import (
 	"time"
 )
 
-type Home struct{}
+type Info struct{}
 
-func (s Home) Render() image.Image {
+func (s Info) Render() image.Image {
 	context := Background()
 
 	// Footer
@@ -78,7 +78,7 @@ func (s Home) Render() image.Image {
 	return context.Image()
 }
 
-func (s Home) Handle(key string) {
+func (s Info) Handle(key string) {
 	if util.DefaultHandle(key) {
 		return
 	}

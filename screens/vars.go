@@ -7,7 +7,7 @@ import (
 	"piscreen/util"
 )
 
-var CurrentScreen Screen = Home{}
+var CurrentScreen Screen = Info{}
 
 type Screen interface {
 	Render() image.Image
