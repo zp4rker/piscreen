@@ -6,7 +6,6 @@ import (
 	"periph.io/x/conn/v3/gpio/gpioreg"
 	"periph.io/x/host/v3"
 	"piscreen/screens"
-	"piscreen/standby"
 	"piscreen/util"
 	"piscreen/vars"
 	"time"
@@ -41,13 +40,4 @@ func Listen() {
 			}
 		}(key)
 	}
-}
-
-func DefaultHandle(_ string) bool {
-	standby.LastActive = time.Now()
-	if vars.Display.Asleep {
-		vars.Display.ToggleSleep()
-		return true
-	}
-	return false
 }

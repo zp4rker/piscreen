@@ -9,7 +9,6 @@ import (
 	"github.com/shirou/gopsutil/v3/net"
 	"golang.org/x/exp/slices"
 	"image"
-	"piscreen/keys"
 	"piscreen/util"
 	"piscreen/vars"
 	"strings"
@@ -80,7 +79,7 @@ func (s Home) Render() image.Image {
 }
 
 func (s Home) Handle(key string) {
-	if keys.DefaultHandle(key) {
+	if util.DefaultHandle(key) {
 		return
 	}
 
