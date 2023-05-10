@@ -1,6 +1,7 @@
 package screens
 
 import (
+	"fmt"
 	"github.com/fogleman/gg"
 	"image"
 	"piscreen/util"
@@ -19,6 +20,10 @@ func Background() *gg.Context {
 	context.SetRGB(util.GGColor(0x35, 0x37, 0x39))
 	context.DrawRectangle(0, 0, 240, 240)
 	context.Fill()
+
+	if err := context.LoadFontFace("JetBrainsMono.ttf", 17); err != nil {
+		fmt.Printf("Failed to load font!")
+	}
 
 	return context
 }

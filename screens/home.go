@@ -15,10 +15,6 @@ type Home struct{}
 func (s Home) Render() image.Image {
 	context := Background()
 
-	if err := context.LoadFontFace("JetBrainsMono.ttf", 17); err != nil {
-		fmt.Printf("Failed to load font!")
-	}
-
 	// Footer
 	context.SetRGB(util.GGColor(0xFF, 0xFF, 0xFF))
 	context.DrawLine(0, 210, 240, 210)
@@ -32,11 +28,11 @@ func (s Home) Render() image.Image {
 
 	vm, _ := mem.VirtualMemory()
 	memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
-	context.DrawStringAnchored(memString, 10, 10, 0, 1.25)
+	context.DrawStringAnchored(memString, 5, 5, 0, 1.25)
 
 	du, _ := disk.Usage("/")
 	diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
-	context.DrawStringAnchored(diskString, 10, 27, 0, 1.25)
+	context.DrawStringAnchored(diskString, 5, 27, 0, 1.25)
 
 	return context.Image()
 }
