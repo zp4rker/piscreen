@@ -34,6 +34,6 @@ func (s Main) Handle(key string) {
 
 	switch key {
 	case "KEY1":
-		screens.GoBack()
+		util.GoBackScreen()
 	}
 }

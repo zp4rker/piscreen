@@ -26,18 +26,20 @@ func main() {
 	vars.Running = true
 	keys.Listen()
 	standby.Observe()
+	vars.CurrentScreen = screens.Info{}
+	vars.PrevScreen = vars.CurrentScreen
 	util.Debug("go routines initialised\n")
 
 	vars.Display.Clear(color.RGBA{})
 
-	prevImage := screens.CurrentScreen.Render()
+	prevImage := vars.CurrentScreen.Render()
 
 	for vars.Running {
 		if vars.Display.IsAsleep() {
 			continue
 		}
 
-		newImage := screens.CurrentScreen.Render()
+		newImage := vars.CurrentScreen.Render()
 		if util.ImageCmp(prevImage, newImage) {
 			continue
 		}

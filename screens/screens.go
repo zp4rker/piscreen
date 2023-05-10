@@ -3,19 +3,9 @@ package screens
 import (
 	"fmt"
 	"github.com/fogleman/gg"
-	"image"
 	"piscreen/util"
 	"time"
 )
-
-var CurrentScreen Screen = Info{}
-var PrevScreen Screen = Info{}
-
-type Screen interface {
-	Id() string
-	Render() image.Image
-	Handle(key string)
-}
 
 func BaseScreen(footer bool) *gg.Context {
 	context := gg.NewContext(240, 240)
@@ -41,15 +31,4 @@ func BaseScreen(footer bool) *gg.Context {
 	}
 
 	return context
-}
-
-func ChangeScreen(s Screen) {
-	PrevScreen = CurrentScreen
-	CurrentScreen = s
-}
-
-func GoBack() {
-	s := CurrentScreen
-	CurrentScreen = PrevScreen
-	PrevScreen = s
 }

@@ -77,6 +77,6 @@ func (s Info) Handle(key string) {
 
 	switch key {
 	case "KEY3":
-		ChangeScreen(menus.Main{})
+		util.ChangeScreen(menus.Main{})
 	}
 }
