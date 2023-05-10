@@ -6,6 +6,7 @@ import (
 	"piscreen/keys"
 	"piscreen/screens"
 	"piscreen/spi"
+	"piscreen/standby"
 	"piscreen/util"
 	"piscreen/vars"
 )
@@ -19,7 +20,8 @@ func main() {
 	defer vars.Display.Close()
 
 	vars.Running = true
-	keys.StartKeyListeners()
+	keys.Listen()
+	standby.Observe()
 
 	vars.Display.Clear(color.RGBA{})
 
