@@ -28,7 +28,7 @@ func BaseScreen(footer bool) *gg.Context {
 		if now.Unix()%2 == 0 {
 			timeFmt = "Mon 2 Jan 2006 15 04"
 		}
-		context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
+		context.DrawStringAnchored(now.Format(timeFmt), 120, 225, 0.5, 0.5)
 	}
 
 	return context

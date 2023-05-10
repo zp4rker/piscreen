@@ -1,12 +1,23 @@
 package menus
 
 import (
-	"fmt"
 	"image"
 	"piscreen/util"
 )
 
 type Main struct{}
+
+var (
+	buttons = []string{
+		"Home",
+		"Something",
+		"Something else",
+		"Info",
+		"Exit",
+	}
+
+	focus = 0
+)
 
 func (s Main) Id() string {
 	return "main_menu"
@@ -15,12 +26,17 @@ func (s Main) Id() string {
 func (s Main) Render() image.Image {
 	context := util.BaseScreen(false)
 
-	context.SetRGB(util.GGColor(0xFF, 0xFF, 0xFF))
-	for i := 0; i < 5; i++ {
+	for i := 0; i < len(buttons); i++ {
+		context.SetRGB(util.GGColor(0xFF, 0xFF, 0xFF))
 		context.DrawRectangle(10, float64(10+i*46), 220, 36)
-		context.Stroke()
+		if focus == i {
+			context.Fill()
+			context.SetRGB(util.GGColor(0x00, 0x00, 0x00))
+		} else {
+			context.Stroke()
+		}
 
-		context.DrawStringAnchored(fmt.Sprintf("Button %v", i), 120, float64(10+i*46+18), 0.5, 0.5)
+		context.DrawStringAnchored(buttons[i], 120, float64(10+i*46+18), 0.5, 0.5)
 	}
 
 	return context.Image()
