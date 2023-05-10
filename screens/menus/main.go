@@ -3,6 +3,8 @@ package menus
 import (
 	"image"
 	"piscreen/util"
+	"piscreen/vars"
+	"piscreen/vars/screens"
 )
 
 type Main struct{}
@@ -62,5 +64,18 @@ func (s Main) Handle(key string) {
 		} else {
 			focus = 0
 		}
+	case "KEY_PRESS":
+		handleButton(buttons[focus])
+	}
+}
+
+func handleButton(button string) {
+	switch button {
+	case "Home":
+		util.ChangeScreen(screens.Home)
+		vars.PrevScreen = screens.Home
+	case "Info":
+		util.ChangeScreen(screens.Info)
+		vars.PrevScreen = screens.Home
 	}
 }
