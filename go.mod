@@ -6,6 +6,7 @@ require (
 	github.com/fogleman/gg v1.3.0
 	github.com/shirou/gopsutil/v3 v3.23.4
 	github.com/stianeikeland/go-rpio/v4 v4.6.0
+	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	periph.io/x/conn/v3 v3.7.0
 	periph.io/x/host/v3 v3.8.2
 )

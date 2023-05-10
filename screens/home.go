@@ -5,9 +5,11 @@ import (
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/net"
+	"golang.org/x/exp/slices"
 	"image"
 	"piscreen/util"
 	"piscreen/vars"
+	"strings"
 	"time"
 )
 
@@ -27,21 +29,31 @@ func (s Home) Render() image.Image {
 	}
 	context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
 
+	lines := 0
+
 	if vm, err := mem.VirtualMemory(); err == nil {
 		memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
-		context.DrawStringAnchored(memString, 5, 5, 0, 1.25)
+		context.DrawStringAnchored(memString, 5, float64(5+lines*16), 0, 1.25)
+		lines++
 	}
 
 	if du, err := disk.Usage("/"); err == nil {
 		diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
-		context.DrawStringAnchored(diskString, 5, 26, 0, 1.25)
+		context.DrawStringAnchored(diskString, 5, float64(5+lines*16), 0, 1.25)
+		lines++
 	}
 
 	if ifs, err := net.Interfaces(); err == nil {
 		for _, iface := range ifs {
-			println(iface.Name)
-			fmt.Printf("%v\n", iface.Flags)
-			fmt.Printf("%v\n", iface.Addrs)
+			if slices.Contains(iface.Flags, "up") {
+				for _, a := range iface.Addrs {
+					if strings.Contains(a.Addr, ".") && strings.Contains(a.Addr, "/") {
+						s := fmt.Sprintf("IP(%v): %v", iface.Name, a.Addr[:len(a.Addr)-3])
+						context.DrawStringAnchored(s, 5, float64(5+lines*16), 0, 1.25)
+						lines++
+					}
+				}
+			}
 		}
 	}
 
