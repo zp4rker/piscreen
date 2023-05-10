@@ -6,6 +6,7 @@ import (
 	"piscreen/keys"
 	"piscreen/screens"
 	"piscreen/spi"
+	"piscreen/util"
 	"piscreen/vars"
 )
 
@@ -22,11 +23,19 @@ func main() {
 
 	vars.Display.Clear(color.RGBA{})
 
+	prevImage := screens.CurrentScreen.Render()
+
 	for vars.Running {
 		if vars.Display.Asleep {
 			continue
 		}
 
-		vars.Display.ShowImage(screens.CurrentScreen.Render())
+		newImage := screens.CurrentScreen.Render()
+		if util.ImageCmp(prevImage, newImage) {
+			continue
+		}
+
+		prevImage = newImage
+		vars.Display.ShowImage(newImage)
 	}
 }
