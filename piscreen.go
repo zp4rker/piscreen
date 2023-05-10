@@ -26,7 +26,7 @@ func main() {
 	vars.Running = true
 	keys.Listen()
 	standby.Observe()
-	vars.CurrentScreen = screens.Info{}
+	vars.CurrentScreen = screens.Home{}
 	vars.PrevScreen = vars.CurrentScreen
 	util.Debug("go routines initialised\n")
 

@@ -1,13 +1,12 @@
-package menus
+package screens
 
 import (
 	"image"
 	"piscreen/util"
 	"piscreen/vars"
-	"piscreen/vars/screens"
 )
 
-type Main struct{}
+type MainMenu struct{}
 
 var (
 	buttons = []string{
@@ -21,11 +20,11 @@ var (
 	focus = 0
 )
 
-func (s Main) Id() string {
+func (s MainMenu) Id() string {
 	return "main_menu"
 }
 
-func (s Main) Render() image.Image {
+func (s MainMenu) Render() image.Image {
 	context := util.BaseScreen(false)
 
 	for i := 0; i < len(buttons); i++ {
@@ -44,7 +43,7 @@ func (s Main) Render() image.Image {
 	return context.Image()
 }
 
-func (s Main) Handle(key string) {
+func (s MainMenu) Handle(key string) {
 	if util.DefaultHandle(key) {
 		return
 	}
@@ -72,10 +71,10 @@ func (s Main) Handle(key string) {
 func handleButton(button string) {
 	switch button {
 	case "Home":
-		util.ChangeScreen(screens.Home)
-		vars.PrevScreen = screens.Home
+		util.ChangeScreen(Home{})
+		vars.PrevScreen = Home{}
 	case "Info":
-		util.ChangeScreen(screens.Info)
-		vars.PrevScreen = screens.Home
+		util.ChangeScreen(Info{})
+		vars.PrevScreen = Info{}
 	}
 }
