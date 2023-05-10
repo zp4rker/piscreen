@@ -48,7 +48,7 @@ func (s Home) Render() image.Image {
 			if slices.Contains(iface.Flags, "up") {
 				for _, a := range iface.Addrs {
 					if strings.Contains(a.Addr, ".") && strings.Contains(a.Addr, "/") {
-						s := fmt.Sprintf("IP(%v): %v", iface.Name, a.Addr[:len(a.Addr)-3])
+						s := fmt.Sprintf("%v: %v", iface.Name, a.Addr[:len(a.Addr)-3])
 						context.DrawStringAnchored(s, 5, float64(5+lines*17), 0, 1.25)
 						lines++
 					}
