@@ -33,7 +33,7 @@ func StartKeyListeners() {
 					if t.Sub(k.LastRegistered).Milliseconds() < int64(vars.ListenDelay) {
 						continue
 					}
-					util.Debug(fmt.Sprintf("%vms\n", t.Sub(k.LastRegistered).Milliseconds()))
+					util.Debug(fmt.Sprintf("%vms", t.Sub(k.LastRegistered).Milliseconds()))
 					k.LastRegistered = t
 					screens.CurrentScreen.Handle(k.Name)
 				}

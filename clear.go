@@ -3,13 +3,14 @@ package main
 import (
 	"image/color"
 	"piscreen/spi"
+	"piscreen/util"
 )
 
 func main() {
 	disp := spi.NewST7789()
 	defer disp.Close()
 
-	println("clearing...")
+	util.Debug("clearing...\n")
 	disp.Clear(color.RGBA{})
-	println("done")
+	util.Debug("done\n")
 }
