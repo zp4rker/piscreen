@@ -145,7 +145,7 @@ func (d *ST7789) ToggleSleep() {
 	if !d.Asleep {
 		d.Asleep = true
 		//d.Command(SLPIN)
-		//time.Sleep(120 * time.Millisecond)
+		time.Sleep(120 * time.Millisecond)
 		d.Clear(color.RGBA{})
 	} else {
 		d.Asleep = false
