@@ -9,8 +9,10 @@ import (
 )
 
 var CurrentScreen Screen = Info{}
+var PrevScreen Screen = Info{}
 
 type Screen interface {
+	Id() string
 	Render() image.Image
 	Handle(key string)
 }
@@ -39,4 +41,15 @@ func BaseScreen(footer bool) *gg.Context {
 	}
 
 	return context
+}
+
+func ChangeScreen(s Screen) {
+	PrevScreen = CurrentScreen
+	CurrentScreen = s
+}
+
+func GoBack() {
+	s := CurrentScreen
+	CurrentScreen = PrevScreen
+	PrevScreen = s
 }

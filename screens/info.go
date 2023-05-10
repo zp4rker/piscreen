@@ -16,6 +16,10 @@ import (
 
 type Info struct{}
 
+func (s Info) Id() string {
+	return "info"
+}
+
 func (s Info) Render() image.Image {
 	context := BaseScreen(true)
 
