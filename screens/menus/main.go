@@ -3,7 +3,6 @@ package menus
 import (
 	"fmt"
 	"image"
-	"piscreen/screens"
 	"piscreen/util"
 )
 
@@ -14,7 +13,7 @@ func (s Main) Id() string {
 }
 
 func (s Main) Render() image.Image {
-	context := screens.BaseScreen(false)
+	context := util.BaseScreen(false)
 
 	context.SetRGB(util.GGColor(0xFF, 0xFF, 0xFF))
 	for i := 0; i < 5; i++ {
