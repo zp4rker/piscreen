@@ -50,5 +50,17 @@ func (s Main) Handle(key string) {
 	switch key {
 	case "KEY1":
 		util.GoBackScreen()
+	case "KEY_UP":
+		if focus > 0 {
+			focus--
+		} else {
+			focus = len(buttons) - 1
+		}
+	case "KEY_DOWN":
+		if focus < len(buttons)-1 {
+			focus++
+		} else {
+			focus = 0
+		}
 	}
 }
