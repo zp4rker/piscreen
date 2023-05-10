@@ -29,13 +29,15 @@ func Listen() {
 		go func(k Key) {
 			for vars.Running {
 				if p.WaitForEdge(-1) {
+					util.Debug(fmt.Sprintf("received press of %v\n", k.Name))
 					t := time.Now()
 					if t.Sub(k.LastRegistered).Milliseconds() < int64(vars.ListenDelay) {
 						continue
 					}
-					util.Debug(fmt.Sprintf("%vms", t.Sub(k.LastRegistered).Milliseconds()))
+					util.Debug(fmt.Sprintf("pressed after %vms", t.Sub(k.LastRegistered).Milliseconds()))
 					k.LastRegistered = t
 					screens.CurrentScreen.Handle(k.Name)
+					util.Debug("press handled")
 				}
 			}
 		}(key)

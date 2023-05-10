@@ -4,6 +4,7 @@ import (
 	"github.com/stianeikeland/go-rpio/v4"
 	"image"
 	"image/color"
+	"piscreen/util"
 	"time"
 )
 
@@ -144,11 +145,13 @@ func (d *ST7789) Reset() {
 func (d *ST7789) ToggleSleep() {
 	if !d.Asleep {
 		d.Asleep = true
+		util.Debug("going to sleep\n")
 		//d.Command(SLPIN)
 		time.Sleep(120 * time.Millisecond)
 		d.Clear(color.RGBA{})
 	} else {
 		d.Asleep = false
+		util.Debug("waking up\n")
 		//d.Command(SLPOUT)
 		//time.Sleep(120 * time.Millisecond)
 	}
