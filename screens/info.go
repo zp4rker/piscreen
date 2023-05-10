@@ -9,8 +9,8 @@ import (
 	"github.com/shirou/gopsutil/v3/net"
 	"golang.org/x/exp/slices"
 	"image"
+	"piscreen/screens/menus"
 	"piscreen/util"
-	"piscreen/vars"
 	"strings"
 )
 
@@ -76,7 +76,7 @@ func (s Info) Handle(key string) {
 	}
 
 	switch key {
-	case "KEY_PRESS":
-		vars.Display.ToggleSleep()
+	case "KEY3":
+		ChangeScreen(menus.Main{})
 	}
 }
