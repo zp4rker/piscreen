@@ -10,6 +10,7 @@ import (
 	"piscreen/standby"
 	"piscreen/util"
 	"piscreen/vars"
+	"time"
 )
 
 func main() {
@@ -43,6 +44,6 @@ func main() {
 
 		prevImage = newImage
 		vars.Display.ShowImage(newImage)
-		util.Debug("\nnew image rendered")
+		util.Debug(fmt.Sprintf("\nnew image rendered @ %v", time.Now().Format("15:04:05")))
 	}
 }
