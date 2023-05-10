@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
+	"github.com/shirou/gopsutil/v3/net"
 	"image"
 	"piscreen/util"
 	"piscreen/vars"
@@ -26,13 +27,23 @@ func (s Home) Render() image.Image {
 	}
 	context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
 
-	vm, _ := mem.VirtualMemory()
-	memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
-	context.DrawStringAnchored(memString, 5, 5, 0, 1.25)
+	if vm, err := mem.VirtualMemory(); err == nil {
+		memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
+		context.DrawStringAnchored(memString, 5, 5, 0, 1.25)
+	}
 
-	du, _ := disk.Usage("/")
-	diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
-	context.DrawStringAnchored(diskString, 5, 26, 0, 1.25)
+	if du, err := disk.Usage("/"); err == nil {
+		diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
+		context.DrawStringAnchored(diskString, 5, 26, 0, 1.25)
+	}
+
+	if ifs, err := net.Interfaces(); err == nil {
+		for _, iface := range ifs {
+			println(iface.Name)
+			fmt.Printf("%v\n", iface.Flags)
+			fmt.Printf("%v\n", iface.Addrs)
+		}
+	}
 
 	return context.Image()
 }
