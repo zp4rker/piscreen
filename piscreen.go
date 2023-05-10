@@ -12,7 +12,7 @@ import (
 
 func main() {
 	ld := flag.Int("listen-delay", 170, "delay between button press listen")
-	fmt.Printf("%vms\n", ld)
+	fmt.Printf("%vms\n", *ld)
 	vars.ListenDelay = *ld
 
 	vars.Display = spi.NewST7789()
