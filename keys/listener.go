@@ -26,7 +26,7 @@ func StartKeyListeners() {
 
 		go func(k Key) {
 			for vars.Running {
-				if p.WaitForEdge(170 * time.Millisecond) {
+				if p.WaitForEdge(-1) {
 					t := time.Now()
 					if t.Sub(k.LastRegistered).Milliseconds() < 170 {
 						continue
