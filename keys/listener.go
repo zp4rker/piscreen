@@ -1,6 +1,7 @@
 package keys
 
 import (
+	"fmt"
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
 	"periph.io/x/host/v3"
@@ -31,6 +32,7 @@ func StartKeyListeners() {
 					if t.Sub(k.LastRegistered).Milliseconds() < int64(vars.ListenDelay) {
 						continue
 					}
+					fmt.Printf("%vms\n", t.Sub(k.LastRegistered).Milliseconds())
 					k.LastRegistered = t
 					screens.CurrentScreen.Handle(k.Name)
 				}
