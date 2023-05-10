@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	flag.IntVar(&vars.ListenDelay, "listen-delay", 170, "delay between button press listen")
+	flag.IntVar(&vars.ListenDelay, "listen-delay", 300, "delay between button press listen")
 	flag.BoolVar(&vars.Debug, "debug", false, "whether to print debug messages")
 	flag.Parse()
 
