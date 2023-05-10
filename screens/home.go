@@ -31,18 +31,6 @@ func (s Home) Render() image.Image {
 
 	lines := 0
 
-	if vm, err := mem.VirtualMemory(); err == nil {
-		memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
-		context.DrawStringAnchored(memString, 5, float64(5+lines*17), 0, 1.25)
-		lines++
-	}
-
-	if du, err := disk.Usage("/"); err == nil {
-		diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
-		context.DrawStringAnchored(diskString, 5, float64(5+lines*17), 0, 1.25)
-		lines++
-	}
-
 	if ifs, err := net.Interfaces(); err == nil {
 		for _, iface := range ifs {
 			if iface.Name == "lo" {
@@ -59,6 +47,18 @@ func (s Home) Render() image.Image {
 				}
 			}
 		}
+	}
+
+	if vm, err := mem.VirtualMemory(); err == nil {
+		memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
+		context.DrawStringAnchored(memString, 5, float64(5+lines*17), 0, 1.25)
+		lines++
+	}
+
+	if du, err := disk.Usage("/"); err == nil {
+		diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
+		context.DrawStringAnchored(diskString, 5, float64(5+lines*17), 0, 1.25)
+		lines++
 	}
 
 	return context.Image()
