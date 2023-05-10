@@ -3,6 +3,7 @@ package screens
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/v3/disk"
+	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/net"
 	"golang.org/x/exp/slices"
@@ -30,6 +31,12 @@ func (s Home) Render() image.Image {
 	context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
 
 	lines := 0
+
+	if inf, err := host.Info(); err == nil {
+		s := fmt.Sprintf("Hostname: %v", inf.Hostname)
+		context.DrawStringAnchored(s, 5, float64(5+lines*17), 0, 1.25)
+		lines++
+	}
 
 	if ifs, err := net.Interfaces(); err == nil {
 		for _, iface := range ifs {
