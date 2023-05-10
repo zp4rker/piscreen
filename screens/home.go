@@ -31,11 +31,11 @@ func (s Home) Render() image.Image {
 	context.DrawStringAnchored(now.Format(timeFmt), 120, 215, 0.5, 1.25)
 
 	vm, _ := mem.VirtualMemory()
-	memString := fmt.Sprintf("Memory: %d/%d MB", vm.Used/1024/1024, vm.Total/1024/1024)
+	memString := fmt.Sprintf("Memory: %.0f%%", vm.UsedPercent)
 	context.DrawStringAnchored(memString, 10, 10, 0, 1.25)
 
 	du, _ := disk.Usage("/")
-	diskString := fmt.Sprintf("Storage: %.2f/%.2f GB", float64(du.Used)/1024/1024/1024, float64(du.Total)/1024/1024/1024)
+	diskString := fmt.Sprintf("Storage: %.2f%%", du.UsedPercent)
 	context.DrawStringAnchored(diskString, 10, 27, 0, 1.25)
 
 	return context.Image()
