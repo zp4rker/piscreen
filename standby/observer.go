@@ -6,12 +6,10 @@ import (
 	"time"
 )
 
-var LastActive = time.Now()
-
 func Observe() {
 	go func() {
 		for vars.Running {
-			if !vars.Display.Asleep && time.Now().Sub(LastActive).Seconds() >= 15 {
+			if !vars.Display.IsAsleep() && time.Now().Sub(vars.LastActive).Seconds() >= 15 {
 				util.Debug("standby delay reached\n")
 				vars.Display.ToggleSleep()
 			}

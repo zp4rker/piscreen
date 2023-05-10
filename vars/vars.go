@@ -1,10 +1,14 @@
 package vars
 
-import "piscreen/spi"
+import (
+	"piscreen/core"
+	"time"
+)
 
 var Running = false
 
-var Display spi.ST7789
+var Display core.Display
+var LastActive = time.Now()
 
 var Debug = false
 var ListenDelay = 300

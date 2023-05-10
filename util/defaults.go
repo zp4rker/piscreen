@@ -1,14 +1,13 @@
 package util
 
 import (
-	"piscreen/standby"
 	"piscreen/vars"
 	"time"
 )
 
 func DefaultHandle(_ string) bool {
-	standby.LastActive = time.Now()
-	if vars.Display.Asleep {
+	vars.LastActive = time.Now()
+	if vars.Display.IsAsleep() {
 		vars.Display.ToggleSleep()
 		return true
 	}

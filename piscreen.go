@@ -20,7 +20,7 @@ func main() {
 
 	vars.Display = spi.NewST7789()
 	defer vars.Display.Close()
-	util.Debug("display initialised\n")
+	util.Debug("core initialised\n")
 
 	vars.Running = true
 	keys.Listen()
@@ -32,7 +32,7 @@ func main() {
 	prevImage := screens.CurrentScreen.Render()
 
 	for vars.Running {
-		if vars.Display.Asleep {
+		if vars.Display.IsAsleep() {
 			continue
 		}
 

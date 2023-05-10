@@ -13,10 +13,10 @@ type ST7789 struct {
 
 	dcPin, rstPin, blPin *rpio.Pin
 
-	Asleep bool
+	asleep bool
 }
 
-func NewST7789() ST7789 {
+func NewST7789() *ST7789 {
 	dcPin, rstPin, blPin := rpio.Pin(25), rpio.Pin(27), rpio.Pin(24)
 	inst := ST7789{
 		width:  240,
@@ -120,7 +120,7 @@ func NewST7789() ST7789 {
 
 	inst.Command(DISPON)
 
-	return inst
+	return &inst
 }
 
 func (d *ST7789) Command(cmds ...byte) {
@@ -142,15 +142,19 @@ func (d *ST7789) Reset() {
 	time.Sleep(10 * time.Millisecond)
 }
 
+func (d *ST7789) IsAsleep() bool {
+	return d.asleep
+}
+
 func (d *ST7789) ToggleSleep() {
-	if !d.Asleep {
-		d.Asleep = true
+	if !d.asleep {
+		d.asleep = true
 		util.Debug("going to sleep\n")
 		//d.Command(SLPIN)
 		time.Sleep(120 * time.Millisecond)
 		d.Clear(color.RGBA{})
 	} else {
-		d.Asleep = false
+		d.asleep = false
 		util.Debug("waking up\n")
 		//d.Command(SLPOUT)
 		//time.Sleep(120 * time.Millisecond)
