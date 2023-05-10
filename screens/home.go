@@ -20,4 +20,9 @@ func (s Home) Handle(key string) {
 	if util.DefaultHandle(key) {
 		return
 	}
+
+	switch key {
+	case "KEY3":
+		util.ChangeScreen(MainMenu{})
+	}
 }
