@@ -45,6 +45,10 @@ func (s Home) Render() image.Image {
 
 	if ifs, err := net.Interfaces(); err == nil {
 		for _, iface := range ifs {
+			if iface.Name == "lo" {
+				// Skip lo
+				continue
+			}
 			if slices.Contains(iface.Flags, "up") {
 				for _, a := range iface.Addrs {
 					if strings.Contains(a.Addr, ".") && strings.Contains(a.Addr, "/") {
