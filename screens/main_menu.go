@@ -45,6 +45,7 @@ func (s MainMenu) Render() image.Image {
 
 func (s MainMenu) Handle(key string) {
 	if util.DefaultHandle(key) {
+		focus = 0
 		return
 	}
 
@@ -65,6 +66,7 @@ func (s MainMenu) Handle(key string) {
 		}
 	case "KEY_PRESS":
 		handleButton(buttons[focus])
+		focus = 0
 	}
 }
 

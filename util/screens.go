@@ -34,10 +34,20 @@ func BaseScreen(footer bool) *gg.Context {
 	return context
 }
 
-func DefaultHandle(_ string) bool {
+func DefaultHandle(key string) bool {
 	vars.LastActive = time.Now()
+
 	if vars.Display.IsAsleep() {
 		vars.Display.ToggleSleep()
+		return true
+	}
+
+	switch key {
+	case "KEY1":
+		GoBackScreen()
+		return true
+	case "KEY3":
+		OpenMainMenu()
 		return true
 	}
 	return false
@@ -52,4 +62,8 @@ func GoBackScreen() {
 	s := vars.CurrentScreen
 	vars.CurrentScreen = vars.PrevScreen
 	vars.PrevScreen = s
+}
+
+func OpenMainMenu() {
+	ChangeScreen(vars.MainMenu)
 }

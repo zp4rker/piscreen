@@ -26,9 +26,13 @@ func main() {
 	vars.Running = true
 	keys.Listen()
 	standby.Observe()
-	vars.CurrentScreen = screens.Home{}
-	vars.PrevScreen = vars.CurrentScreen
 	util.Debug("go routines initialised\n")
+
+	vars.HomeScreen = screens.Home{}
+	vars.MainMenu = screens.MainMenu{}
+
+	vars.CurrentScreen = vars.HomeScreen
+	vars.PrevScreen = vars.CurrentScreen
 
 	vars.Display.Clear(color.RGBA{})
 
