@@ -34,6 +34,15 @@ func BaseScreen(footer bool) *gg.Context {
 	return context
 }
 
+func DefaultHandle(_ string) bool {
+	vars.LastActive = time.Now()
+	if vars.Display.IsAsleep() {
+		vars.Display.ToggleSleep()
+		return true
+	}
+	return false
+}
+
 func ChangeScreen(s core.Screen) {
 	vars.PrevScreen = vars.CurrentScreen
 	vars.CurrentScreen = s
