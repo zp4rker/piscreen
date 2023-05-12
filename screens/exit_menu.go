@@ -3,6 +3,7 @@ package screens
 import (
 	"image"
 	"piscreen/util"
+	"piscreen/vars"
 )
 
 type ExitMenu Menu
@@ -65,6 +66,18 @@ func (s *ExitMenu) Handle(key string) {
 	}
 }
 
-func (s *ExitMenu) handleButton(_ string) {
-	// Need to fill this in
+func (s *ExitMenu) handleButton(button string) {
+	switch button {
+	case "Exit app":
+		vars.Running = false
+	case "Shutdown device":
+		vars.OnExit = "shutdown"
+		vars.Running = false
+	case "Restart app":
+		vars.OnExit = "restart app"
+		vars.Running = false
+	case "Restart device":
+		vars.OnExit = "reboot"
+		vars.Running = false
+	}
 }

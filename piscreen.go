@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"image/color"
+	"os/exec"
 	"piscreen/keys"
 	"piscreen/screens"
 	"piscreen/spi"
@@ -52,5 +53,21 @@ func main() {
 		vars.Display.ShowImage(newImage)
 		util.Debug(fmt.Sprintf("\nnew image rendered @ %v", time.Now().Format("15:04:05")))
 		time.Sleep(500 * time.Millisecond)
+	}
+
+	if vars.OnExit == "shutdown" {
+		if err := exec.Command("sudo", "shutdown now").Run(); err != nil {
+			panic(err)
+		}
+	} else if vars.OnExit == "restart app" {
+		if err := exec.Command("sudo", "~zp4rker/lcd/go/piscreen").Start(); err != nil {
+			panic(err)
+		}
+	} else if vars.OnExit == "reboot" {
+		if err := exec.Command("sudo", "reboot").Run(); err != nil {
+			panic(err)
+		}
+	} else {
+		vars.Display.Clear(color.RGBA{})
 	}
 }

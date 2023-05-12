@@ -6,6 +6,7 @@ import (
 )
 
 var Running = false
+var OnExit = "none"
 
 var Display core.Display
 var LastActive = time.Now()
