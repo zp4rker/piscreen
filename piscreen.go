@@ -60,7 +60,7 @@ func main() {
 			panic(err)
 		}
 	} else if vars.OnExit == "restart app" {
-		if err := exec.Command("sudo", "bash", "-c", "sleep 5s && ~zp4rker/lcd/go/piscreen").Start(); err != nil {
+		if err := exec.Command("sudo", "bash", "-c", "sleep 3s && ~zp4rker/lcd/go/piscreen").Start(); err != nil {
 			panic(err)
 		}
 		vars.Display.Clear(color.RGBA{})
