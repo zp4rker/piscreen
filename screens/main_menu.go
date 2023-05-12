@@ -79,5 +79,7 @@ func (s *MainMenu) handleButton(button string) {
 	case "Info":
 		util.ChangeScreen(Info{})
 		vars.PrevScreen = vars.CurrentScreen
+	case "Exit":
+		util.ChangeScreen(ExitMenuInst())
 	}
 }
