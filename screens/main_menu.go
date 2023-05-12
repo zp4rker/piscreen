@@ -72,10 +72,10 @@ func (s *Menu) Handle(key string) {
 func handleButton(button string) {
 	switch button {
 	case "Home":
-		util.ChangeScreen(Home{})
-		vars.PrevScreen = Home{}
+		util.GoHome()
+		vars.PrevScreen = vars.CurrentScreen
 	case "Info":
 		util.ChangeScreen(Info{})
-		vars.PrevScreen = Info{}
+		vars.PrevScreen = vars.CurrentScreen
 	}
 }
