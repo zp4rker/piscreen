@@ -56,7 +56,7 @@ func main() {
 	}
 
 	if vars.OnExit == "shutdown" {
-		if err := exec.Command("sudo", "shutdown now").Run(); err != nil {
+		if err := exec.Command("sudo", "shutdown", "now").Run(); err != nil {
 			panic(err)
 		}
 	} else if vars.OnExit == "restart app" {
