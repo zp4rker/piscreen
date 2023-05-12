@@ -3,6 +3,7 @@ package screens
 import (
 	"image"
 	"piscreen/util"
+	"piscreen/vars"
 )
 
 type Home struct{}
@@ -24,5 +25,7 @@ func (s Home) Handle(key string) {
 	switch key {
 	case "KEY3":
 		util.OpenMainMenu()
+	case "KEY1":
+		vars.Display.ToggleSleep()
 	}
 }

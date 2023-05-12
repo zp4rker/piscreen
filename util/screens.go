@@ -44,6 +44,12 @@ func DefaultHandle(key string) bool {
 
 	switch key {
 	case "KEY1":
+		if vars.CurrentScreen == vars.PrevScreen {
+			if vars.CurrentScreen.Id() == "home" {
+				return false
+			}
+			GoHome()
+		}
 		GoBackScreen()
 		return true
 	case "KEY3":
@@ -59,9 +65,12 @@ func ChangeScreen(s core.Screen) {
 }
 
 func GoBackScreen() {
-	s := vars.CurrentScreen
 	vars.CurrentScreen = vars.PrevScreen
-	vars.PrevScreen = s
+}
+
+func GoHome() {
+	ChangeScreen(vars.HomeScreen)
+	vars.PrevScreen = vars.CurrentScreen
 }
 
 func OpenMainMenu() {
