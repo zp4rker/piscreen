@@ -29,7 +29,7 @@ func main() {
 	util.Debug("go routines initialised\n")
 
 	vars.HomeScreen = screens.Home{}
-	vars.MainMenu = screens.MainMenu()
+	vars.MainMenu = screens.MainMenuInst()
 
 	vars.CurrentScreen = vars.HomeScreen
 	vars.PrevScreen = vars.CurrentScreen

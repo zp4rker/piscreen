@@ -11,8 +11,10 @@ type Menu struct {
 	focus   int
 }
 
-func MainMenu() *Menu {
-	return &Menu{buttons: []string{
+type MainMenu Menu
+
+func MainMenuInst() *MainMenu {
+	return &MainMenu{buttons: []string{
 		"Home",
 		"Something",
 		"Something else",
@@ -21,11 +23,11 @@ func MainMenu() *Menu {
 	}}
 }
 
-func (s *Menu) Id() string {
+func (s *MainMenu) Id() string {
 	return "main_menu"
 }
 
-func (s *Menu) Render() image.Image {
+func (s *MainMenu) Render() image.Image {
 	context := util.BaseScreen(false)
 
 	for i := 0; i < len(s.buttons); i++ {
@@ -44,7 +46,7 @@ func (s *Menu) Render() image.Image {
 	return context.Image()
 }
 
-func (s *Menu) Handle(key string) {
+func (s *MainMenu) Handle(key string) {
 	if util.DefaultHandle(key) {
 		s.focus = 0
 		return
@@ -64,12 +66,12 @@ func (s *Menu) Handle(key string) {
 			s.focus = 0
 		}
 	case "KEY_PRESS":
-		handleButton(s.buttons[s.focus])
+		s.handleButton(s.buttons[s.focus])
 		s.focus = 0
 	}
 }
 
-func handleButton(button string) {
+func (s *MainMenu) handleButton(button string) {
 	switch button {
 	case "Home":
 		util.GoHome()
