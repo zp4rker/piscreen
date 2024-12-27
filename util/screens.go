@@ -5,6 +5,7 @@ import (
 	"github.com/fogleman/gg"
 	"piscreen/core"
 	"piscreen/vars"
+	"strings"
 	"time"
 )
 
@@ -44,13 +45,11 @@ func DefaultHandle(key string) bool {
 
 	switch key {
 	case "KEY1":
-		if vars.CurrentScreen == vars.PrevScreen {
-			if vars.CurrentScreen.Id() == "home" {
-				return false
-			}
-			GoHome()
+		if strings.Contains(vars.CurrentScreen.Id(), "menu") {
+			GoBackScreen()
+		} else {
+			vars.Display.ToggleSleep()
 		}
-		GoBackScreen()
 		return true
 	case "KEY3":
 		OpenMainMenu()
