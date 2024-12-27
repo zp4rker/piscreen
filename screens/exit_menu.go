@@ -79,5 +79,7 @@ func (s *ExitMenu) handleButton(button string) {
 	case "Restart device":
 		vars.OnExit = "reboot"
 		vars.Running = false
+	case "Cancel":
+		util.GoBackScreen()
 	}
 }
