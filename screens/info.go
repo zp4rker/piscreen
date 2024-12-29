@@ -21,6 +21,7 @@ func (s Info) Id() string {
 
 func (s Info) Render() image.Image {
 	context := util.BaseScreen(true)
+	util.White(context)
 
 	lines := 0
 

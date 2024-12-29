@@ -12,7 +12,7 @@ import (
 func BaseScreen(footer bool) *gg.Context {
 	context := gg.NewContext(240, 240)
 
-	context.SetRGB(GGColor(0x35, 0x37, 0x39))
+	DarkGrey(context)
 	context.DrawRectangle(0, 0, 240, 240)
 	context.Fill()
 
@@ -21,7 +21,7 @@ func BaseScreen(footer bool) *gg.Context {
 	}
 
 	if footer {
-		context.SetRGB(GGColor(0xFF, 0xFF, 0xFF))
+		White(context)
 		context.DrawRectangle(0, 210, 240, 240)
 		context.Fill()
 		now := time.Now()
@@ -29,9 +29,8 @@ func BaseScreen(footer bool) *gg.Context {
 		if now.Unix()%2 == 0 {
 			timeFmt = "Mon 2 Jan 2006 15 04"
 		}
-		context.SetRGB(GGColor(0x35, 0x37, 0x39))
+		DarkGrey(context)
 		context.DrawStringAnchored(now.Format(timeFmt), 120, 225, 0.5, 0.5)
-		context.SetRGB(GGColor(0xFF, 0xFF, 0xFF))
 	}
 
 	return context

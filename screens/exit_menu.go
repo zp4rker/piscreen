@@ -26,11 +26,11 @@ func (s *ExitMenu) Render() image.Image {
 	context := util.BaseScreen(false)
 
 	for i := 0; i < len(s.buttons); i++ {
-		context.SetRGB(util.GGColor(0xFF, 0xFF, 0xFF))
+		util.White(context)
 		context.DrawRectangle(10, float64(10+i*46), 220, 36)
 		if s.focus == i {
 			context.Fill()
-			context.SetRGB(util.GGColor(0x00, 0x00, 0x00))
+			util.DarkGrey(context)
 		} else {
 			context.Stroke()
 		}
