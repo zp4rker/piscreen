@@ -80,8 +80,8 @@ class GT1151:
                 
                 for i in range(0, GT_Dev.TouchCount, 1):
                     GT_Dev.Touchkeytrackid[i] = buf[0 + 8*i] 
-                    GT_Dev.X[i] = (buf[2 + 8*i] << 8) + buf[1 + 8*i]
-                    GT_Dev.Y[i] = (buf[4 + 8*i] << 8) + buf[3 + 8*i]
+                    GT_Dev.X[i] = (buf[4 + 8*i] << 8) + buf[3 + 8*i]
+                    GT_Dev.Y[i] = (buf[2 + 8*i] << 8) + buf[1 + 8*i]
                     GT_Dev.S[i] = (buf[6 + 8*i] << 8) + buf[5 + 8*i]
 
                 logging.debug(GT_Dev.X[0], GT_Dev.Y[0], GT_Dev.S[0])

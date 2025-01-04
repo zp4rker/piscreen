@@ -316,7 +316,7 @@ class EPD:
         img = image
         imwidth, imheight = img.size
         if(imwidth == self.width and imheight == self.height):
-            img = img.rotate(360, expand=True).convert('1')
+            img = img.rotate(0, expand=True).convert('1')
         elif(imwidth == self.height and imheight == self.width):
             # image has correct dimensions, but needs to be rotated
             img = img.rotate(90, expand=True).convert('1')

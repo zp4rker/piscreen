@@ -91,7 +91,7 @@ class PiScreen(object):
                                 if not self.dragging:
                                     event = {
                                             "x": self.gt_dev.X[0],
-                                            "y": self.gt_dev.Y[0],
+                                            "y": self.epd.width - self.gt_dev.Y[0],
                                             "s": self.gt_dev.S[0],
                                             "dragging": self.dragging
                                     }
