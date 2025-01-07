@@ -9,25 +9,28 @@ class TestScreen(Screen):
     def start(self):
         self.draw_page()
         self.app.draw(self.image, partial = False)
+        super().start()
     
 
     def accept_event(self, event):
         if event["swipe"]:
-            return
-        
-        if event["duration"] > 1:
-            self.app.busy = True
-            self.app.change_screen(ClockScreen(self.app))
-            return
-        
-        self.app.busy = True
-        if event["x"] < 125:
-            self.style[0] = 0 if self.style[0] else 1
+            if event["direction"] == "left" and event["x1"] > self.image.width - 10:
+                self.app.busy = True
+                self.app.change_screen(ClockScreen(self.app))
         else:
-            self.style[1] = 0 if self.style[1] else 1
-        self.draw_page()
-        self.app.draw(self.image)
-        self.app.busy = False
+            if event["duration"] > 1:
+                self.app.busy = True
+                self.app.change_screen(ClockScreen(self.app))
+                return
+            
+            self.app.busy = True
+            if event["x"] < 125:
+                self.style[0] = 0 if self.style[0] else 1
+            else:
+                self.style[1] = 0 if self.style[1] else 1
+            self.draw_page()
+            self.app.draw(self.image)
+            self.app.busy = False
 
 
     def draw_page(self):

@@ -13,7 +13,7 @@ class Screen(object):
 
 
     def start(self):
-        pass
+        self.app.busy = False
 
 
     def accept_event(self, event):

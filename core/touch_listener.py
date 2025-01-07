@@ -57,23 +57,23 @@ class TouchListener(Thread):
                         else:
                             logging.debug("Unexpected: cnt: %d, flag: %d, x: %d, y: %d, s: %d" % (self.gt_dev.TouchCount, self.gt_dev.TouchpointFlag, self.gt_dev.X[0], self.gt_dev.Y[0], self.gt_dev.S[0]))
                         self.pressed = False
+                        self.first_touch = None
                         self.touch_start = None
                         self.dragging = False
-                        self.first_touch = None
                     else:
                         if not self.pressed:
                             logging.debug("Pressed: cnt: %d, flag: %d, x: %d, y: %d, s: %d" % (self.gt_dev.TouchCount, self.gt_dev.TouchpointFlag, self.gt_dev.X[0], self.gt_dev.Y[0], self.gt_dev.S[0]))
                         else:
                             if(self.gt_dev.distance(self.gt_dev_old) > 1):
                                 self.dragging = True
-                                if not self.first_touch:
-                                    self.first_touch = {
-                                        "x": self.gt_dev_old.X[0],
-                                        "y": self.gt_dev_old.Y[0],
-                                        "s": self.gt_dev_old.S[0]
-                                    }
                                 logging.debug("Dragged: cnt: %d, flag: %d, x: %d, y: %d, s: %d" % (self.gt_dev.TouchCount, self.gt_dev.TouchpointFlag, self.gt_dev.X[0], self.gt_dev.Y[0], self.gt_dev.S[0]))
                         self.pressed = True
+                        if not self.first_touch:
+                            self.first_touch = {
+                                "x": self.gt_dev.X[0],
+                                "y": self.gt_dev.Y[0],
+                                "s": self.gt_dev.S[0]
+                            }
                         if not self.touch_start:
                             self.touch_start = datetime.now()
         except Exception as e:
@@ -94,7 +94,10 @@ class TouchListener(Thread):
 
 
     def swipe_direction(self, event):
-        xdist = abs(event["x1"] - event["x2"])
-        ydist = abs(event["y1"] - event["y2"])
+        xdist = event["x1"] - event["x2"]
+        ydist = event["y1"] - event["y2"]
 
-        return "horizontal" if xdist > ydist else "vertical"
+        if abs(xdist) > abs(ydist):
+            return "right" if xdist < 0 else "left"
+        else:
+            return "down" if ydist < 0 else "up"
