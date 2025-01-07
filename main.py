@@ -23,20 +23,18 @@ class PiScreen(object):
     touch_thread = None
     event_queue = Queue()
 
-    font = ImageFont.truetype("font.ttf", 14)
-
 
     def main(self):
         self.setup()
 
         self.current_screen = TestScreen(self)
-        self.current_screen.start(self)
+        self.current_screen.start()
 
         while(self.running):
             try:
                 evt = self.event_queue.get(timeout=1)
                 if self.current_screen:
-                    self.current_screen.accept_event(self, evt)
+                    self.current_screen.accept_event(evt)
                 logging.debug("Got event")
                 if evt["swipe"]:
                     logging.debug("(%s,%s) -> (%s,%s) %s swipe %ss", evt["x1"], evt["y1"], evt["x2"], evt["y2"], evt["direction"], evt["duration"])
@@ -73,7 +71,7 @@ class PiScreen(object):
     def change_screen(self, screen):
         self.prev_screen = self.current_screen
         self.current_screen = screen
-        self.current_screen.start(self)
+        self.current_screen.start()
 
 
     def back_screen(self):
@@ -82,7 +80,7 @@ class PiScreen(object):
         
         self.current_screen = self.prev_screen
         self.prev_screen = None
-        self.current_screen.start(app)
+        self.current_screen.start()
 
 
     def setup(self):
