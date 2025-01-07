@@ -5,7 +5,8 @@ from core.font import font
 
 class ClockScreen(Screen):
     style = 0
-    font = font(48)
+    roboto = font(size = 48)
+    arial = font("arial.ttf", 10)
 
     def start(self):
         self.app.draw(self.image, partial = False)
@@ -18,7 +19,9 @@ class ClockScreen(Screen):
         self.reset_image()
         t = datetime.now()
         self.draw.rectangle([0, 0, self.image.width, self.image.height], fill = 0 if self.style else 1)
-        self.draw.text((self.image.width/2, self.image.height/2), t.strftime("%H:%M"), font = self.font, fill = self.style, anchor = "mm")
+        self.draw.text((self.image.width/2, self.image.height/2), t.strftime("%H:%M"), font = self.roboto, fill = self.style, anchor = "mm")
+
+        self.draw.text((5, self.image.height - 5), t.strftime("%H:%M"), font = self.arial, fill = self.style, anchor = "lb")
 
 
     def accept_event(self, event):

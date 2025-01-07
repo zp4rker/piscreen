@@ -3,7 +3,8 @@ from screen.clock import ClockScreen
 from core.font import font
 
 class TestScreen(Screen):
-    font = font()
+    roboto = font()
+    arial = font("arial.ttf", 10)
     style = [0, 1]
 
     def start(self):
@@ -36,6 +37,8 @@ class TestScreen(Screen):
     def draw_page(self):
         self.reset_image()
         self.draw.rectangle([0, 0, self.image.width, 125], fill = self.style[0])
-        self.draw.text((125 - 2, 61), "Assalaamu", font = self.font, fill = 0 if self.style[0] else 1, anchor = "rm")
+        self.draw.text((125 - 2, 61), "Assalaamu", font = self.roboto, fill = 0 if self.style[0] else 1, anchor = "rm")
         self.draw.rectangle([125, 0, self.image.width, 125], fill = self.style[1])
-        self.draw.text((125 + 2, 61), "'alaykum!", font = self.font, fill = 0 if self.style[1] else 1, anchor = "lm")
+        self.draw.text((125 + 2, 61), "'alaykum!", font = self.roboto, fill = 0 if self.style[1] else 1, anchor = "lm")
+        
+        self.draw.text((5, self.image.height - 5), "Assalaamu 'alaykum", fill = 0 if self.style[0] else 1, anchor = "lb")
