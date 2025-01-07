@@ -2,6 +2,7 @@ from epd.epd2in13_V3 import EPD
 from epd.gt1151 import GT1151
 from core.touch_listener import TouchListener
 from screen.test import TestScreen
+from screen.clock import ClockScreen
 from PIL import Image, ImageDraw, ImageFont
 import logging
 from queue import Queue, Empty
@@ -26,6 +27,11 @@ class PiScreen(object):
 
     def main(self):
         self.setup()
+
+        self.screens = {
+            "test": TestScreen(self),
+            "clock": ClockScreen(self)
+        }
 
         self.current_screen = TestScreen(self)
         self.current_screen.start()
@@ -69,8 +75,11 @@ class PiScreen(object):
 
 
     def change_screen(self, screen):
+        if screen not in self.screens:
+            return
+        
         self.prev_screen = self.current_screen
-        self.current_screen = screen
+        self.current_screen = self.screens[screen]
         self.current_screen.start()
 
 

@@ -9,7 +9,7 @@ class TestScreen(Screen):
 
     def start(self):
         self.draw_page()
-        self.app.draw(self.image, partial = False)
+        self.render(False)
         super().start()
     
 
@@ -17,11 +17,11 @@ class TestScreen(Screen):
         if event["swipe"]:
             if event["direction"] == "left" and event["x1"] > self.image.width - 10:
                 self.app.busy = True
-                self.app.change_screen(ClockScreen(self.app))
+                self.app.change_screen("clock")
         else:
             if event["duration"] > 1:
                 self.app.busy = True
-                self.app.change_screen(ClockScreen(self.app))
+                self.app.change_screen("clock")
                 return
             
             self.app.busy = True
@@ -30,15 +30,13 @@ class TestScreen(Screen):
             else:
                 self.style[1] = 0 if self.style[1] else 1
             self.draw_page()
-            self.app.draw(self.image)
+            self.render()
             self.app.busy = False
 
 
     def draw_page(self):
         self.reset_image()
         self.draw.rectangle([0, 0, self.image.width, 125], fill = self.style[0])
-        self.draw.text((125 - 2, 61), "Assalaamu", font = self.roboto, fill = 0 if self.style[0] else 1, anchor = "rm")
+        self.draw.text(((self.image.width / 2) - 2, self.image.height / 2), "Assalaamu", font = self.roboto, fill = 0 if self.style[0] else 1, anchor = "rm")
         self.draw.rectangle([125, 0, self.image.width, 125], fill = self.style[1])
-        self.draw.text((125 + 2, 61), "'alaykum!", font = self.roboto, fill = 0 if self.style[1] else 1, anchor = "lm")
-        
-        self.draw.text((5, self.image.height - 5), "Assalaamu 'alaykum", fill = 0 if self.style[0] else 1, anchor = "lb")
+        self.draw.text(((self.image.width / 2) + 2, self.image.height / 2), "'alaykum!", font = self.roboto, fill = 0 if self.style[1] else 1, anchor = "lm")
