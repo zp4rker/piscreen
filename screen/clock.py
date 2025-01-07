@@ -1,5 +1,5 @@
 from core.screen import Screen
-from datetime import datetime
+from datetime import datetime, timedelta
 from threading import Thread
 from core.font import font
 from screen import components
@@ -8,8 +8,11 @@ class ClockScreen(Screen):
     style = 0
     roboto = font(size = 48)
     arial = font("arial.ttf", 10)
+        
 
     def start(self):
+        self.full_screen = True
+        self.draw_page()
         self.render(False)
         loop = Thread(target=self.time_loop)
         loop.start()
@@ -40,7 +43,6 @@ class ClockScreen(Screen):
         while self.app.current_screen == self and self.app.running:
             self.draw_page()
             self.render()
-            t = datetime.now().replace(microsecond = 0, second = 0)
-            t = t.replace(minute = t.minute + 1)
+            t = datetime.now().replace(microsecond = 0, second = 0) + timedelta(minutes = 1)
             while t > datetime.now() and self.app.running:
                 pass
