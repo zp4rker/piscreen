@@ -1,7 +1,9 @@
-from threading import Thread, Condition
 import logging
 from datetime import datetime
+from threading import Condition, Thread
+
 from epd.gt1151 import GT_Development
+
 
 class TouchListener(Thread):
     gt_dev = GT_Development()

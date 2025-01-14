@@ -1,5 +1,7 @@
-from PIL import ImageDraw, Image
+from PIL import Image, ImageDraw
+
 from screen import components
+
 
 class Screen(object):
     def __init__(self, app):

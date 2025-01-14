@@ -1,8 +1,10 @@
-from core.screen import Screen
 from datetime import datetime, timedelta
 from threading import Thread
+
 from core.font import font
+from core.screen import Screen
 from screen import components
+
 
 class ClockScreen(Screen):
     style = 0

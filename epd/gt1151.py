@@ -1,6 +1,8 @@
 import logging
 import math
+
 from . import epdconfig as config
+
 
 class GT_Development:
     def __init__(self):

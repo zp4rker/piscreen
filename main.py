@@ -1,14 +1,16 @@
-from epd.epd2in13_V3 import EPD
-from epd.gt1151 import GT1151
-from core.touch_listener import TouchListener
-from screen.test import TestScreen
-from screen.clock import ClockScreen
-from PIL import Image, ImageDraw, ImageFont
 import logging
-from queue import Queue, Empty
-import RPi.GPIO as GPIO
 import signal
 import time
+from queue import Empty, Queue
+
+import RPi.GPIO as GPIO
+from PIL import Image, ImageDraw, ImageFont
+
+from core.touch_listener import TouchListener
+from epd.epd2in13_V3 import EPD
+from epd.gt1151 import GT1151
+from screen.clock import ClockScreen
+from screen.test import TestScreen
 
 
 class PiScreen(object):

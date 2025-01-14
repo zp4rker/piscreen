@@ -29,8 +29,10 @@
 
 
 import logging
-from . import epdconfig
+
 import numpy as np
+
+from . import epdconfig
 
 # Display resolution
 EPD_WIDTH       = 122

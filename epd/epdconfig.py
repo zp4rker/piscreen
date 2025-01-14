@@ -27,12 +27,13 @@
 # THE SOFTWARE.
 #
 
-import RPi.GPIO as GPIO
-import time
-from smbus import SMBus
-import spidev
 import ctypes
 import logging
+import time
+
+import RPi.GPIO as GPIO
+import spidev
+from smbus import SMBus
 
 # e-Paper
 EPD_RST_PIN     = 17

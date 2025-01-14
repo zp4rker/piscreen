@@ -1,6 +1,7 @@
+from core.font import font
 from core.screen import Screen
 from screen.clock import ClockScreen
-from core.font import font
+
 
 class TestScreen(Screen):
     roboto = font()
